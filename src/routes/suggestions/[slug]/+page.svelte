@@ -5,6 +5,7 @@
      export let data;
 
      let suggestion;
+     let allUsers;
      
      onMount(async () => {
           if (!$preferences[1]) {
@@ -19,6 +20,15 @@
                },
           });
           suggestion = await res.json();
+
+          const userRes = await fetch('https://feedback-api-eight.vercel.app/users', {
+               method: "GET",
+               headers: {
+                    Accept: "application.json",
+                    "Content-Type": "application/json",
+               },
+          });
+          allUsers = await userRes.json();
      });
 
      async function update() {
@@ -66,4 +76,15 @@
           <p>{suggestion?.tag}</p>
           <p>{suggestion?.comment.length}</p>
      </div>
+     
+     {#each suggestion?.comment as comment}
+          {#if allUsers}
+               {#each allUsers as user}
+                    {#if user?._id == comment?.user_id}
+                         <p>{user?.email}</p>
+                    {/if}
+               {/each}
+          {/if}
+          <p>{comment?.comment}</p>     
+     {/each}
 {/if}

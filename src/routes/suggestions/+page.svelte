@@ -8,7 +8,7 @@
      let tagFilter = false;
      let filterByTag = '';
      let filterByNumbers = '';
-     let filterByStatus = 'status';
+     let filterByStatus = 'Pending';
      let tags;
      let statuses;
 
