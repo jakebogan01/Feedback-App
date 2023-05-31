@@ -1,5 +1,6 @@
 <script>
      import { onMount, afterUpdate } from 'svelte';
+     import { preferences } from '../../store/preferences';
 
      let suggestions;
      let updatedSuggestions;
@@ -70,22 +71,28 @@
      }
      
      const handleUpdateLikes = async (id, count) => {
-          count += 1;
-          try {
-               const response = await fetch(`https://feedback-api-eight.vercel.app/suggestions/${id}`, {
-                    method: "PUT",
-                    headers: {
-                         Accept: "application.json",
-                         "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                         likes: count
-                    }),
-               });
-               update();
-          } catch (error) {
-               console.error(error.message);
+          let userEmails = suggestions.filter(item => item._id === id)
+
+          if (!userEmails[0].users_liked.includes($preferences?.[1].email)) {
+               count += 1;
+               try {
+                    const response = await fetch(`https://feedback-api-eight.vercel.app/suggestions/${id}`, {
+                         method: "PUT",
+                         headers: {
+                              Accept: "application.json",
+                              "Content-Type": "application/json",
+                         },
+                         body: JSON.stringify({
+                              likes: count,
+                              users_liked: [...userEmails[0].users_liked, $preferences?.[1].email]
+                         }),
+                    });
+                    update();
+               } catch (error) {
+                    console.error(error.message);
+               }
           }
+          return;
      }
 </script>
 
