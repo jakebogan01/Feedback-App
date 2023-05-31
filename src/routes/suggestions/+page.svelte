@@ -1,31 +1,60 @@
 <script>
-     export let data = null;
+     import { onMount, afterUpdate } from 'svelte';
 
-     let filterByNumbers = '';
+     let suggestions;
+     let updatedSuggestions;
      let tagFilter = false;
      let filterByTag = '';
+     let filterByNumbers = '';
      let filterByStatus = 'status';
-     let suggestions = data?.suggestions?.data;
+     let tags;
+     let statuses;
+
+     onMount(async () => {
+          const res = await fetch('https://feedback-api-eight.vercel.app/suggestions', {
+               method: "GET",
+               headers: {
+                    Accept: "application.json",
+                    "Content-Type": "application/json",
+               },
+          });
+          suggestions = await res.json();
+     });
+
+     async function update() {
+          const res = await fetch('https://feedback-api-eight.vercel.app/suggestions', {
+               method: "GET",
+               headers: {
+                    Accept: "application.json",
+                    "Content-Type": "application/json",
+               },
+          });
+          updatedSuggestions = await res.json();
+          suggestions = [...updatedSuggestions]
+     }
 
      const removeDuplicates = (ar) => {
-          let filterArray = [...ar];
-          let unique = [...new Set(filterArray)];
+          let unique = [...new Set(ar)];
           return unique.filter(e => e);
      }
 
-     $: tags = suggestions.map((item) => {
-          if (item.status == filterByStatus) {
-               return item.tag;
-          }
-     })
+     afterUpdate(()=>{
+          if (suggestions) {
+               tags = suggestions.map((item) => {
+                    if (item.status == filterByStatus) {
+                         return item.tag;
+                    }
+               })
 
-     let statuses = suggestions.map((item) => {
-          return item.status;
+               statuses = suggestions.map((item) => {
+                    return item.status;
+               })
+          }
      })
 
      let copiedSuggestions = [];
      $: {
-          copiedSuggestions = [...suggestions];
+          copiedSuggestions = suggestions;
           if (filterByNumbers == 'Least Upvotes') {
                copiedSuggestions.sort((a, b) => parseFloat(a.likes) - parseFloat(b.likes));
           }
@@ -37,6 +66,25 @@
           }
           if (filterByNumbers == 'Most Comments') {
                copiedSuggestions.sort((a, b) => parseFloat(b.comment.length) - parseFloat(a.comment.length));
+          }
+     }
+     
+     const handleUpdateLikes = async (id, count) => {
+          count += 1;
+          try {
+               const response = await fetch(`https://feedback-api-eight.vercel.app/suggestions/${id}`, {
+                    method: "PUT",
+                    headers: {
+                         Accept: "application.json",
+                         "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                         likes: count
+                    }),
+               });
+               update();
+          } catch (error) {
+               console.error(error.message);
           }
      }
 </script>
@@ -52,29 +100,35 @@
      </select>
 </div>
 
-{#each copiedSuggestions as suggestion}
-     {#if suggestion.status == filterByStatus}
-          {#if suggestion.tag == filterByTag && tagFilter}
-               <div class="py-4 px-4">
-                    <p>{suggestion?.title}</p>
-                    <p>{suggestion?.description}</p>
-                    <p>{suggestion?.likes}</p>
-                    <p>{suggestion?.tag}</p>
-                    <p>{suggestion?.comment.length}</p>
-               </div>
-               <hr>
-          {:else if !tagFilter}
-               <div class="py-4 px-4">
-                    <p>{suggestion?.title}</p>
-                    <p>{suggestion?.description}</p>
-                    <p>{suggestion?.likes}</p>
-                    <p>{suggestion?.tag}</p>
-                    <p>{suggestion?.comment.length}</p>
-               </div>
-               <hr>
+{#if suggestions}
+     {#each copiedSuggestions as suggestion}
+          {#if suggestion.status == filterByStatus}
+               {#if suggestion.tag == filterByTag && tagFilter}
+                    <div class="py-4 px-4">
+                         <p>{suggestion?.title}</p>
+                         <p>{suggestion?.description}</p>
+                         <form on:submit|preventDefault|once={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}}>
+                              <button type="submit">{suggestion?.likes}</button>
+                         </form>
+                         <p>{suggestion?.tag}</p>
+                         <p>{suggestion?.comment.length}</p>
+                    </div>
+                    <hr>
+               {:else if !tagFilter}
+                    <div class="py-4 px-4">
+                         <p>{suggestion?.title}</p>
+                         <p>{suggestion?.description}</p>
+                         <form on:submit|preventDefault|once={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}}>
+                              <button type="submit">{suggestion?.likes}</button>
+                         </form>
+                         <p>{suggestion?.tag}</p>
+                         <p>{suggestion?.comment.length}</p>
+                    </div>
+                    <hr>
+               {/if}
           {/if}
-     {/if}
-{/each}
+     {/each}
+{/if}
 
 <div>
      <h2>Tags:</h2>
