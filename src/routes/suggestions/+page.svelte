@@ -1,6 +1,7 @@
 <script>
      import { onMount, afterUpdate } from 'svelte';
      import { preferences } from '../../store/preferences';
+     import { goto } from '$app/navigation';
 
      let suggestions;
      let updatedSuggestions;
@@ -12,6 +13,10 @@
      let statuses;
 
      onMount(async () => {
+          if (!$preferences[1]) {
+               goto('/');
+          }
+
           const res = await fetch('https://feedback-api-eight.vercel.app/suggestions', {
                method: "GET",
                headers: {
@@ -111,26 +116,30 @@
      {#each copiedSuggestions as suggestion}
           {#if suggestion.status == filterByStatus}
                {#if suggestion.tag == filterByTag && tagFilter}
-                    <div class="py-4 px-4">
-                         <p>{suggestion?.title}</p>
-                         <p>{suggestion?.description}</p>
-                         <form on:submit|preventDefault|once={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}}>
-                              <button type="submit">{suggestion?.likes}</button>
-                         </form>
-                         <p>{suggestion?.tag}</p>
-                         <p>{suggestion?.comment.length}</p>
-                    </div>
+                    <a href="/suggestions/{suggestion?._id}" class="block">
+                         <div class="py-4 px-4">
+                              <p>{suggestion?.title}</p>
+                              <p>{suggestion?.description}</p>
+                              <form on:submit|preventDefault|once={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}}>
+                                   <button type="submit">{suggestion?.likes}</button>
+                              </form>
+                              <p>{suggestion?.tag}</p>
+                              <p>{suggestion?.comment.length}</p>
+                         </div>
+                    </a>
                     <hr>
                {:else if !tagFilter}
-                    <div class="py-4 px-4">
-                         <p>{suggestion?.title}</p>
-                         <p>{suggestion?.description}</p>
-                         <form on:submit|preventDefault|once={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}}>
-                              <button type="submit">{suggestion?.likes}</button>
-                         </form>
-                         <p>{suggestion?.tag}</p>
-                         <p>{suggestion?.comment.length}</p>
-                    </div>
+                    <a href="/suggestions/{suggestion?._id}" class="block">
+                         <div class="py-4 px-4">
+                              <p>{suggestion?.title}</p>
+                              <p>{suggestion?.description}</p>
+                              <form on:submit|preventDefault|once={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}}>
+                                   <button type="submit">{suggestion?.likes}</button>
+                              </form>
+                              <p>{suggestion?.tag}</p>
+                              <p>{suggestion?.comment.length}</p>
+                         </div>
+                    </a>
                     <hr>
                {/if}
           {/if}
