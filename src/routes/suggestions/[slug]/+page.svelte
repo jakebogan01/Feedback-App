@@ -2,10 +2,12 @@
      import { onMount } from 'svelte';
      import { preferences } from '../../../store/preferences';
      import { goto } from '$app/navigation';
+     import CreateSuggestion from '../../../components/CreateSuggestion.svelte';
      export let data;
 
      let suggestion;
      let allUsers;
+     let showCreateForm = false;
      
      onMount(async () => {
           if (!$preferences[1]) {
@@ -66,7 +68,16 @@
      }
 </script>
 
+{#if showCreateForm}
+     <CreateSuggestion bind:showCreateForm={showCreateForm} />
+{/if}
+
 {#if suggestion}
+     {#if suggestion?.user_id == $preferences?.[1]._id}
+          <button type="button" on:click={()=>{showCreateForm = true}}>Edit Suggestion</button>
+     {/if}
+
+
      <div class="py-4 px-4">
           <p>{suggestion?.title}</p>
           <p>{suggestion?.description}</p>

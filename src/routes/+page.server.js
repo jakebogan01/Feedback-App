@@ -2,12 +2,6 @@ import { fail } from "@sveltejs/kit";
 /** @type {import('./$types').Actions} */
 
 export const actions = {
-     // updateSuggestion: async ({ request }) => {
-     //
-     // },
-     // deleteSuggestion: async (event) => {
-     //
-     // },
      register: async ({ request }) => {
           const values = await request.formData();
 
