@@ -68,8 +68,8 @@
      }
 </script>
 
-{#if showEditForm}
-     <EditSuggestion bind:showEditForm={showEditForm} />
+{#if showEditForm && suggestion}
+     <EditSuggestion post={suggestion} bind:showEditForm={showEditForm} />
 {/if}
 
 {#if suggestion}

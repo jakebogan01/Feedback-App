@@ -1,9 +1,10 @@
 <script>
      import { onMount } from 'svelte';
      export let showEditForm;
+     export let post;
 
      let suggestions;
-     let fields = {title: '', tag: '', description: ''};
+     $: fields = {title: '', tag: '', status: '', description: ''};
 
      onMount(async () => {
           const res = await fetch(`https://feedback-api-eight.vercel.app/suggestions`, {
@@ -15,6 +16,48 @@
           });
           suggestions = await res.json();
      });
+
+     const handleValidation = (e, field) => {
+          switch (field) {
+               case "title":
+                    fields.title = e.target.value;
+                    break;
+               case "tag":
+                    fields.tag = e.target.value.trim();
+                    break;
+               case "status":
+                    fields.status = e.target.value.trim();
+                    break;
+               case "description":
+                    fields.description = e.target.value.trim();
+                    break;
+          }
+     }
+
+     const handleUpdateLikes = async () => {
+          try {
+               const response = await fetch(`https://feedback-api-eight.vercel.app/suggestions/${post._id}`, {
+                    method: "PUT",
+                    headers: {
+                         Accept: "application.json",
+                         "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                         title: fields.title === "" ? post.title : fields.title,
+                         tag: fields.tag === "" ? post.tag : fields.tag,
+                         status: fields.status === "" ? post.status : fields.status,
+                         description: fields.description === "" ? post.description : fields.description,
+                    }),
+               }).then((response) => {
+                    if (response.ok) { 
+                         location.reload();
+                    }
+               });
+          } catch (error) {
+               console.error(error.message);
+          }
+          return;
+     }
 </script>
 
 <div class="relative" style="z-index: 100;" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -22,7 +65,7 @@
      <div class="fixed inset-0 z-10 overflow-y-auto" on:keydown={()=>{}} on:click|self={()=>{showEditForm = false}}>
           <div class="flex min-h-full justify-center text-center items-center p-0" on:keydown={()=>{}} on:click|self={()=>{showEditForm = false}}>
                <div class="relative transform overflow-hidden rounded-lg bg-white dark:bg-[#2B2C37] px-4 pb-4 pt-5 text-left shadow-xl transition-all my-8 w-full max-w-[30rem] p-6">
-                    <form method="POST" action="?/createSuggestion" enctype="multipart/form-data">
+                    <form on:submit|preventDefault={handleUpdateLikes}>
                          <div>
                               <div class="mt-3">
                                    <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white text-center" id="modal-title">Add New Board</h3>
@@ -31,12 +74,12 @@
                                              <div>
                                                   <label for="title" class="block text-xs font-bold leading-6 text-[#828FA3] dark:text-white">Name</label>
                                                   <div class="mt-2">
-                                                       <input type="text" bind:value={fields.title} name="title" id="title" class="block w-full bg-transparent dark:bg-[#2B2C37] dark:text-wite rounded-md border-0 py-1.5 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-[#3E3F4E] placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="e.g. Web Design" required>
+                                                       <input type="text" on:input={(event)=>{handleValidation(event, 'title')}} value={post.title} name="title" id="title" class="block w-full bg-transparent dark:bg-[#2B2C37] dark:text-wite rounded-md border-0 py-1.5 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-[#3E3F4E] placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="e.g. Web Design" required>
                                                   </div>
                                              </div>
                                              <div>
                                                   <label for="tag" class="block text-sm font-medium leading-6 text-gray-900">tags</label>
-                                                  <select id="tag" bind:value={fields.tag} name="tag" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                  <select id="tag" on:input={(event)=>{handleValidation(event, 'tag')}} value={post.tag} name="tag" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                        <option></option>
                                                        {#each suggestions as suggestion}
                                                             <option>{suggestion?.tag}</option>
@@ -44,9 +87,18 @@
                                                   </select>
                                              </div>
                                              <div>
+                                                  <label for="status" class="block text-sm font-medium leading-6 text-gray-900">status</label>
+                                                  <select id="status" on:input={(event)=>{handleValidation(event, 'status')}} value={post.status} name="status" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                       <option></option>
+                                                       {#each suggestions as suggestion}
+                                                            <option>{suggestion?.status}</option>
+                                                       {/each}
+                                                  </select>
+                                             </div>
+                                             <div>
                                                   <label for="description" class="block text-xs font-bold leading-6 text-[#828FA3] dark:text-white">description</label>
                                                   <div class="mt-2">
-                                                       <input type="text" bind:value={fields.description} name="description" id="description" class="block w-full bg-transparent dark:bg-[#2B2C37] dark:text-wite rounded-md border-0 py-1.5 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-[#3E3F4E] placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="e.g. Web Design" required>
+                                                       <input type="text" on:input={(event)=>{handleValidation(event, 'description')}} value={post.description} name="description" id="description" class="block w-full bg-transparent dark:bg-[#2B2C37] dark:text-wite rounded-md border-0 py-1.5 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-[#3E3F4E] placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="e.g. Web Design" required>
                                                   </div>
                                              </div>
                                         {/if}
