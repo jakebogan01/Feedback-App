@@ -3,7 +3,9 @@
      import { preferences } from '../../../store/preferences';
      import { goto } from '$app/navigation';
      import EditSuggestion from '../../../components/EditSuggestion.svelte';
-     import { comment } from 'svelte/internal';
+     import BackLink from '../../../components/BackLink.svelte';
+     import Button from '../../../components/Button.svelte';
+     import Suggestion from '../../../components/Suggestion.svelte';
      export let data;
 
      let suggestion;
@@ -95,35 +97,65 @@
      <EditSuggestion post={suggestion} bind:showEditForm={showEditForm} />
 {/if}
 
-{#if suggestion}
-     {#if suggestion?.user_id == $preferences?.[1]._id}
-          <button type="button" on:click={()=>{showEditForm = true}}>Edit Suggestion</button>
-     {/if}
-
-
-     <div class="py-4 px-4">
-          <p>{suggestion?.title}</p>
-          <p>{suggestion?.description}</p>
-          <form on:submit|preventDefault|once={()=>{handleUpdateLikes(suggestion?.likes)}}>
-               <button type="submit">{suggestion?.likes}</button>
-          </form>
-          <p>{suggestion?.tag}</p>
-          <p>{suggestion?.comment.length}</p>
-     </div>
-     
-     {#each suggestion?.comment as comment}
-          {#if allUsers}
-               {#each allUsers as user}
-                    {#if user?._id == comment?.user_id}
-                         <p>{user?.email}</p>
+<main class="bg-[#F7F8FE] px-6 pt-8 pb-[4.8125rem]">
+     <div class="flex items-center justify-between">
+          <div>
+               <BackLink link="/suggestions" />
+          </div>
+          <div>
+               {#if suggestion}
+                    {#if suggestion?.user_id == $preferences?.[1]._id}
+                         <Button bind:showForm={showEditForm} buttonStyles="bg-[#4761E6]" buttonText="Edit Feedback" />
                     {/if}
-               {/each}
-          {/if}
-          <p>{comment?.comment}</p>     
-     {/each}
-{/if}
+               {/if}
+          </div>
+     </div>
 
-<form on:submit|preventDefault={handleCreateComment} class="mt-10">
-     <textarea type="text" bind:value={commentDescriptoin} name="commentDescriptoin" id="commentDescriptoin" placeholder="e.g. Web Design" required />
-     <button type="submit" class="inline-flex w-full justify-center items-center rounded-md bg-[#635FC7] px-3 h-10 text-sm font-semibold text-white shadow-sm hover:bg-[#A8A4FF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2">Add feedback</button>
-</form>
+     <section class="space-y-6 mt-12">
+          {#if suggestion}
+               <Suggestion suggestion={suggestion} on:submit={()=>{handleUpdateLikes(suggestion?.likes)}} />
+               
+               <div class="bg-white p-6 rounded-[0.625rem] text-13 space-y-12">
+                    <h2 class="font-bold text-lg text-[#3A4374] mb-6">{suggestion?.comment.length} Comments</h2>
+                    {#each suggestion?.comment as comment}
+                         <div>
+                              <div class="flex items-center justify-between mb-4">
+                                   <div class="flex items-center">
+                                        <div class="flex justify-center items-center bg-[#F2F4FF] text-gray-300 mr-4 rounded-full w-10 h-10 overflow-hidden">
+                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>                            
+                                        </div>
+                                        <div class="text-13">
+                                             {#if allUsers}
+                                                  {#each allUsers as user}
+                                                       {#if user?._id == comment?.user_id}
+                                                            <span class="block font-bold text-[#3A4374]">Mr Coach</span>
+                                                            <span class="block text-[#647196]">{user?.email}</span>
+                                                       {/if}
+                                                  {/each}
+                                             {/if}
+                                        </div>
+                                   </div>
+                                   <div>
+                                        <button type="button" class="font-semibold text-13 text-[#4661E6]">Reply</button>
+                                   </div>
+                              </div>
+                              <p>{comment?.comment}</p>     
+                         </div>
+                    {/each}
+               </div>
+          {/if}
+
+          <form on:submit|preventDefault={handleCreateComment} class="bg-white p-6 rounded-[0.625rem] text-13">
+               <h2 class="font-bold text-lg text-[#3A4374] mb-6">Add Comment</h2>
+               <div>
+                    <label for="description" class="block font-bold text-13 text-[#3A4374] sr-only">Create Comment</label>
+                    <div class="mt-3">
+                         <textarea type="text" bind:value={commentDescriptoin} rows="3" cols="50" name="commentDescriptoin" id="commentDescriptoin" class="block w-full bg-[#F7F8FE] text-13 text-[#3A4374] p-3 rounded-[0.3125rem] border-0 ring-1 ring-inset ring-transparent placeholder:text-[#8C92B4] focus:ring-2 focus:ring-inset focus:ring-indigo-600" placeholder="Type your comment here" style="resize: none;" required></textarea>
+                    </div>
+               </div>
+               <div class="flex justify-end mt-4">
+                    <button type="submit" class="bg-[#AD1FE9] text-[#F3F4FE] rounded-[0.625rem] px-4 py-2.5 whitespace-nowrap">Post Comment</button>
+               </div>
+          </form>
+     </section>
+</main>

@@ -4,7 +4,7 @@
 
 <div class="bg-white p-6 rounded-[0.625rem] text-13" data-sveltekit-preload-data="hover">
      <a href="/suggestions/{suggestion?._id}" class="block">
-          <h2 class="font-bold text-[#3A4374]">{suggestion?.title}</h2>
+          <h2 class="font-bold text-[#3A4374] leading-3">{suggestion?.title}</h2>
           <p class="text-[#647196] my-2">{suggestion?.description}</p>
      </a>
      <div class="flex items-end justify-between">
