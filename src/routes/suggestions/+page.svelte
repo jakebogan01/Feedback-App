@@ -3,16 +3,20 @@
      import { preferences } from '../../store/preferences';
      import { goto } from '$app/navigation';
      import CreateSuggestion from '../../components/CreateSuggestion.svelte';
+     import Nav from '../../components/Nav.svelte';
+     import Suggestion from '../../components/Suggestion.svelte';
 
      let suggestions;
      let updatedSuggestions;
      let tagFilter = false;
      let filterByTag = '';
-     let filterByNumbers = '';
+     let filterByNumbers = 'Most Upvotes';
      let filterByStatus = 'Pending';
      let tags;
      let statuses;
      let showCreateForm = false;
+     let showDropList = false
+     let filterOptions = ['Most Upvotes', 'Least Upvotes', 'Most Comments', 'Least Comments'];
 
      onMount(async () => {
           if (!$preferences[1]) {
@@ -62,18 +66,20 @@
 
      let copiedSuggestions = [];
      $: {
-          copiedSuggestions = suggestions;
-          if (filterByNumbers == 'Least Upvotes') {
-               copiedSuggestions.sort((a, b) => parseFloat(a.likes) - parseFloat(b.likes));
-          }
-          if (filterByNumbers == 'Most Upvotes') {
-               copiedSuggestions.sort((a, b) => parseFloat(b.likes) - parseFloat(a.likes));
-          }
-          if (filterByNumbers == 'Least Comments') {
-               copiedSuggestions.sort((a, b) => parseFloat(a.comment.length) - parseFloat(b.comment.length));
-          }
-          if (filterByNumbers == 'Most Comments') {
-               copiedSuggestions.sort((a, b) => parseFloat(b.comment.length) - parseFloat(a.comment.length));
+          if (suggestions) {
+               copiedSuggestions = suggestions;
+               if (filterByNumbers == 'Least Upvotes') {
+                    copiedSuggestions.sort((a, b) => parseFloat(a.likes) - parseFloat(b.likes));
+               }
+               if (filterByNumbers == 'Most Upvotes') {
+                    copiedSuggestions.sort((a, b) => parseFloat(b.likes) - parseFloat(a.likes));
+               }
+               if (filterByNumbers == 'Least Comments') {
+                    copiedSuggestions.sort((a, b) => parseFloat(a.comment.length) - parseFloat(b.comment.length));
+               }
+               if (filterByNumbers == 'Most Comments') {
+                    copiedSuggestions.sort((a, b) => parseFloat(b.comment.length) - parseFloat(a.comment.length));
+               }
           }
      }
      
@@ -103,68 +109,68 @@
      }
 </script>
 
-<button type="button" on:click={()=>{showCreateForm = true}}>create new suggestion</button>
+<div class="bg-[#F7F8FE] h-full">
+     <Nav bind:showDropList={showDropList} />
 
-{#if showCreateForm}
-     <CreateSuggestion bind:showCreateForm={showCreateForm} />
-{/if}
+     <div class="flex items-center justify-between px-6 py-2 bg-[#10263E]" on:keydown={()=>{}} on:click|self={()=>{showDropList = false}}>
+          <div class="flex items-center text-13 text-[#F3F4FE]">
+               <label for="filter" class="whitespace-nowrap">Sort by :</label>
+               <div class="relative">
+                    <button on:click={()=>{showDropList = !showDropList}} type="button" class="relative cursor-pointer bg-transparent text-left ring-0 ring-inset ring-transparent focus:outline-none focus:ring-0 focus:ring-transparent" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
+                         <span class="block truncate font-bold text-13 text-[#F3F4FE] pl-1">{filterByNumbers}</span>
+                         <span class="pointer-events-none absolute inset-y-0 -right-4 flex items-center">
+                              <svg width="9" height="7" class="w-full" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Path 2" d="M1 1L5 5L9 1" stroke="white" stroke-width="2"/></svg>
+                         </span>
+                    </button>
+                    {#if showDropList}
+                         <ul class="absolute mt-1 overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10" tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
+                              {#each filterOptions as option}
+                                   <li on:keydown={()=>{}} on:click={()=>{showDropList = false; filterByNumbers = option}} class="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover:text-gray-400" id="listbox-option-0" role="option" aria-selected>
+                                        <span class="text-13 block truncate">{option}</span>
+                                   </li>
+                              {/each}
+                         </ul>
+                    {/if}
+               </div>
+          </div>
+          <div>
+               <button type="button" on:click={()=>{showCreateForm = true}} class="bg-[#AD1FE9] font-bold text-13 text-[#F2F4FE] whitespace-nowrap py-2.5 px-4 rounded-[0.625rem]">&#43; Add Feedback</button>
+          </div>
+     </div>
 
-<div>
-     <label for="filter" class="block text-sm font-medium leading-6 text-gray-900">Filter by:</label>
-     <select bind:value={filterByNumbers} id="filter" name="filter" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
-          <option></option>
-          <option>Most Upvotes</option>
-          <option>Least Upvotes</option>
-          <option>Most Comments</option>
-          <option>Least Comments</option>
-     </select>
-</div>
-
-{#if suggestions}
-     {#each copiedSuggestions as suggestion}
-          {#if suggestion.status == filterByStatus}
-               {#if suggestion.tag == filterByTag && tagFilter}
-                    <a href="/suggestions/{suggestion?._id}" class="block" data-sveltekit-preload-data="hover">
-                         <div class="py-4 px-4">
-                              <p>{suggestion?.title}</p>
-                              <p>{suggestion?.description}</p>
-                              <form on:submit|preventDefault|once={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}}>
-                                   <button type="submit">{suggestion?.likes}</button>
-                              </form>
-                              <p>{suggestion?.tag}</p>
-                              <p>{suggestion?.comment.length}</p>
-                         </div>
-                    </a>
-                    <hr>
-               {:else if !tagFilter}
-                    <a href="/suggestions/{suggestion?._id}" class="block" data-sveltekit-preload-data="hover">
-                         <div class="py-4 px-4">
-                              <p>{suggestion?.title}</p>
-                              <p>{suggestion?.description}</p>
-                              <form on:submit|preventDefault|once={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}}>
-                                   <button type="submit">{suggestion?.likes}</button>
-                              </form>
-                              <p>{suggestion?.tag}</p>
-                              <p>{suggestion?.comment.length}</p>
-                         </div>
-                    </a>
-                    <hr>
-               {/if}
+     <main class="px-6 py-8 space-y-4">
+          {#if suggestions}
+               {#each copiedSuggestions as suggestion}
+                    {#if suggestion.status == filterByStatus}
+                         {#if suggestion.tag == filterByTag && tagFilter}
+                              <Suggestion suggestion={suggestion} on:submit={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}} />
+                         {:else if !tagFilter}
+                              <Suggestion suggestion={suggestion} on:submit={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}} />
+                         {/if}
+                    {/if}
+               {/each}
           {/if}
-     {/each}
-{/if}
+     </main>
 
-<div>
-     <h2>Tags:</h2>
-     <p on:keydown={()=>{}} on:click={()=>{tagFilter = false; filterByTag = ''; filterByNumbers = ''}}>All</p>
-     {#each removeDuplicates(tags) as tag}
-          <p on:keydown={()=>{}} on:click={()=>{tagFilter = true; filterByTag = tag; filterByNumbers = ''}}>{tag}</p>
-     {/each}
-</div>
 
-<div class="pt-4">
-     <h2>statuses:</h2>
-     {#each removeDuplicates(statuses) as status}
-          <p on:keydown={()=>{}} on:click={()=>{filterByStatus = status}}>{status}</p>
-     {/each}
+     {#if showCreateForm}
+          <CreateSuggestion bind:showCreateForm={showCreateForm} />
+     {/if}
+
+     <div class="hidden md:block">
+          <div>
+               <h2>Tags:</h2>
+               <p on:keydown={()=>{}} on:click={()=>{tagFilter = false; filterByTag = ''; filterByNumbers = ''}}>All</p>
+               {#each removeDuplicates(tags) as tag}
+                    <p on:keydown={()=>{}} on:click={()=>{tagFilter = true; filterByTag = tag; filterByNumbers = ''}}>{tag}</p>
+               {/each}
+          </div>
+     
+          <div class="pt-4">
+               <h2>statuses:</h2>
+               {#each removeDuplicates(statuses) as status}
+                    <p on:keydown={()=>{}} on:click={()=>{filterByStatus = status}}>{status}</p>
+               {/each}
+          </div>
+     </div>
 </div>
