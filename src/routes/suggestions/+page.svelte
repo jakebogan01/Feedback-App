@@ -119,10 +119,10 @@
      <Nav bind:openMenu={openMenu} bind:showDropList={showDropList} on:click={showNav} />
 
      <div class="relative flex items-center justify-between px-6 py-2 bg-[#10263E] z-50" on:keydown={()=>{}} on:click|self={()=>{showDropList = false}}>
-          <div class="flex items-center text-13 text-[#F3F4FE]">
+          <div on:keydown={()=>{}} on:click={()=>{showDropList = !showDropList}} class="flex items-center text-13 text-[#F3F4FE]">
                <label for="filter" class="whitespace-nowrap">Sort by :</label>
                <div class="relative">
-                    <button on:click={()=>{showDropList = !showDropList}} type="button" class="relative cursor-pointer bg-transparent text-left ring-0 ring-inset ring-transparent focus:outline-none focus:ring-0 focus:ring-transparent" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
+                    <button  type="button" class="relative cursor-pointer bg-transparent text-left ring-0 ring-inset ring-transparent focus:outline-none focus:ring-0 focus:ring-transparent" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
                          <span class="block truncate font-bold text-13 text-[#F3F4FE] pl-1">{filterByNumbers}</span>
                          <span class="pointer-events-none absolute inset-y-0 -right-4 flex items-center">
                               <svg width="9" height="7" class="w-full" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Path 2" d="M1 1L5 5L9 1" stroke="white" stroke-width="2"/></svg>
@@ -144,10 +144,16 @@
           </div>
      </div>
 
-     <main class="relative px-6 py-8 overflow-hidden">
-          <div class="fixed inset-0 bg-black w-full min-h-screen bg-opacity-50 transition {openMenu ? "opacity-100 z-30" : "opacity-0 z-0"}"></div>
+     {#if showCreateForm}
+          <CreateSuggestion bind:showCreateForm={showCreateForm} />
+     {/if}
 
-          <div class="absolute space-y-6 right-0 top-0 bottom-0 min-h-screen bg-[#F7F8FE] overflow-hidden p-6 max-w-[16.9375rem] z-50 transition {openMenu ? "translate-x-0 opacity-100" : "translate-x-60 opacity-0"}">
+     <main class="relative px-6 py-8 h-screen overflow-hidden">
+          {#if openMenu}
+               <div class="fixed inset-0 bg-black w-full min-h-screen bg-opacity-50 transition z-30"></div>
+          {/if}
+
+          <div class="absolute space-y-6 right-0 top-0 bottom-0 min-h-screen bg-[#F7F8FE] overflow-hidden p-6 w-full max-w-[16.9375rem] z-50 transition {openMenu ? "translate-x-0 opacity-100" : "translate-x-60 opacity-0"}">
                <div class="flex flex-wrap justify-evenly bg-white p-6 rounded-[0.625rem] gap-x-2 gap-y-3.5">
                     <span on:keydown={()=>{}} on:click={()=>{tagFilter = false; filterByTag = ''; filterByNumbers = ''}} class="block bg-[#F2F4FF] rounded-[0.625rem] px-4 py-1 font-semibold text-[#4661E6]">All</span>
                     {#each removeDuplicates(tags) as tag}
@@ -196,11 +202,6 @@
                {/if}
           </div>
      </main>
-
-
-     {#if showCreateForm}
-          <CreateSuggestion bind:showCreateForm={showCreateForm} />
-     {/if}
 
      <!-- <div class="hidden md:block">
           <div>

@@ -97,22 +97,20 @@
      <EditSuggestion post={suggestion} bind:showEditForm={showEditForm} />
 {/if}
 
-<main class="bg-[#F7F8FE] px-6 pt-8 pb-[4.8125rem]">
-     <div class="flex items-center justify-between">
-          <div>
-               <BackLink link="/suggestions" />
-          </div>
-          <div>
-               {#if suggestion}
+{#if suggestion}
+     <main class="bg-[#F7F8FE] px-6 pt-8 pb-[4.8125rem]">
+          <div class="flex items-center justify-between">
+               <div>
+                    <BackLink link="/suggestions" />
+               </div>
+               <div>
                     {#if suggestion?.user_id == $preferences?.[1]._id}
                          <Button bind:showForm={showEditForm} buttonStyles="bg-[#4761E6]" buttonText="Edit Feedback" />
                     {/if}
-               {/if}
+               </div>
           </div>
-     </div>
 
-     <section class="space-y-6 mt-12">
-          {#if suggestion}
+          <section class="space-y-6 mt-12">
                <Suggestion suggestion={suggestion} on:submit={()=>{handleUpdateLikes(suggestion?.likes)}} />
                
                <div class="bg-white p-6 rounded-[0.625rem] text-13 space-y-12">
@@ -143,19 +141,19 @@
                          </div>
                     {/each}
                </div>
-          {/if}
 
-          <form on:submit|preventDefault={handleCreateComment} class="bg-white p-6 rounded-[0.625rem] text-13">
-               <h2 class="font-bold text-lg text-[#3A4374] mb-6">Add Comment</h2>
-               <div>
-                    <label for="description" class="block font-bold text-13 text-[#3A4374] sr-only">Create Comment</label>
-                    <div class="mt-3">
-                         <textarea type="text" bind:value={commentDescriptoin} rows="3" cols="50" name="commentDescriptoin" id="commentDescriptoin" class="block w-full bg-[#F7F8FE] text-13 text-[#3A4374] p-3 rounded-[0.3125rem] border-0 ring-1 ring-inset ring-transparent placeholder:text-[#8C92B4] focus:ring-2 focus:ring-inset focus:ring-indigo-600" placeholder="Type your comment here" style="resize: none;" required></textarea>
+               <form on:submit|preventDefault={handleCreateComment} class="bg-white p-6 rounded-[0.625rem] text-13">
+                    <h2 class="font-bold text-lg text-[#3A4374] mb-6">Add Comment</h2>
+                    <div>
+                         <label for="description" class="block font-bold text-13 text-[#3A4374] sr-only">Create Comment</label>
+                         <div class="mt-3">
+                              <textarea type="text" bind:value={commentDescriptoin} rows="3" cols="50" name="commentDescriptoin" id="commentDescriptoin" class="block w-full bg-[#F7F8FE] text-13 text-[#3A4374] p-3 rounded-[0.3125rem] border-0 ring-1 ring-inset ring-transparent placeholder:text-[#8C92B4] focus:ring-2 focus:ring-inset focus:ring-indigo-600" placeholder="Type your comment here" style="resize: none;" required></textarea>
+                         </div>
                     </div>
-               </div>
-               <div class="flex justify-end mt-4">
-                    <button type="submit" class="bg-[#AD1FE9] text-[#F3F4FE] rounded-[0.625rem] px-4 py-2.5 whitespace-nowrap">Post Comment</button>
-               </div>
-          </form>
-     </section>
-</main>
+                    <div class="flex justify-end mt-4">
+                         <button type="submit" class="bg-[#AD1FE9] text-[#F3F4FE] rounded-[0.625rem] px-4 py-2.5 whitespace-nowrap">Post Comment</button>
+                    </div>
+               </form>
+          </section>
+     </main>
+{/if}
