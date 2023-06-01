@@ -2,6 +2,7 @@
      import { onMount, afterUpdate } from 'svelte';
      import { preferences } from '../../store/preferences';
      import { goto } from '$app/navigation';
+     import CreateSuggestion from '../../components/CreateSuggestion.svelte';
 
      let suggestions;
      let updatedSuggestions;
@@ -11,6 +12,7 @@
      let filterByStatus = 'Pending';
      let tags;
      let statuses;
+     let showCreateForm = false;
 
      onMount(async () => {
           if (!$preferences[1]) {
@@ -100,6 +102,12 @@
           return;
      }
 </script>
+
+<button type="button" on:click={()=>{showCreateForm = true}}>create new suggestion</button>
+
+{#if showCreateForm}
+     <CreateSuggestion bind:showCreateForm={showCreateForm} />
+{/if}
 
 <div>
      <label for="filter" class="block text-sm font-medium leading-6 text-gray-900">Filter by:</label>

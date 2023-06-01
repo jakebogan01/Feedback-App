@@ -1,6 +1,6 @@
 <script>
      import { onMount } from 'svelte';
-     export let showCreateForm;
+     export let showEditForm;
 
      let suggestions;
      let fields = {title: '', tag: '', description: ''};
@@ -19,8 +19,8 @@
 
 <div class="relative" style="z-index: 100;" aria-labelledby="modal-title" role="dialog" aria-modal="true">
      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-     <div class="fixed inset-0 z-10 overflow-y-auto" on:keydown={()=>{}} on:click|self={()=>{showCreateForm = false}}>
-          <div class="flex min-h-full justify-center text-center items-center p-0" on:keydown={()=>{}} on:click|self={()=>{showCreateForm = false}}>
+     <div class="fixed inset-0 z-10 overflow-y-auto" on:keydown={()=>{}} on:click|self={()=>{showEditForm = false}}>
+          <div class="flex min-h-full justify-center text-center items-center p-0" on:keydown={()=>{}} on:click|self={()=>{showEditForm = false}}>
                <div class="relative transform overflow-hidden rounded-lg bg-white dark:bg-[#2B2C37] px-4 pb-4 pt-5 text-left shadow-xl transition-all my-8 w-full max-w-[30rem] p-6">
                     <form method="POST" action="?/createSuggestion" enctype="multipart/form-data">
                          <div>
@@ -55,7 +55,7 @@
                          </div>
                          <div class="mt-5 sm:mt-4 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                               <button type="submit" class="inline-flex w-full justify-center items-center rounded-md bg-[#635FC7] px-3 h-10 text-sm font-semibold text-white shadow-sm hover:bg-[#A8A4FF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2">Add feedback</button>
-                              <button on:click={()=>{showCreateForm = false}} type="button" class="mt-3 inline-flex w-full justify-center items-center rounded-md bg-[#EA5555] px-3 h-10 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-[#FF9898] sm:col-start-1 sm:mt-0">Cancel</button>
+                              <button on:click={()=>{showEditForm = false}} type="button" class="mt-3 inline-flex w-full justify-center items-center rounded-md bg-[#EA5555] px-3 h-10 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-[#FF9898] sm:col-start-1 sm:mt-0">Cancel</button>
                          </div>
                     </form>
                </div>
