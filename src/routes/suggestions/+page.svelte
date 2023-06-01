@@ -124,7 +124,7 @@
      {#each copiedSuggestions as suggestion}
           {#if suggestion.status == filterByStatus}
                {#if suggestion.tag == filterByTag && tagFilter}
-                    <a href="/suggestions/{suggestion?._id}" class="block">
+                    <a href="/suggestions/{suggestion?._id}" class="block" data-sveltekit-preload-data="hover">
                          <div class="py-4 px-4">
                               <p>{suggestion?.title}</p>
                               <p>{suggestion?.description}</p>
@@ -137,7 +137,7 @@
                     </a>
                     <hr>
                {:else if !tagFilter}
-                    <a href="/suggestions/{suggestion?._id}" class="block">
+                    <a href="/suggestions/{suggestion?._id}" class="block" data-sveltekit-preload-data="hover">
                          <div class="py-4 px-4">
                               <p>{suggestion?.title}</p>
                               <p>{suggestion?.description}</p>

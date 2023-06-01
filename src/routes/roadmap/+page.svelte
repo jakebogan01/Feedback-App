@@ -74,6 +74,29 @@
 {/if}
 
 {#if suggestions}
+     <div class="flex">
+          {#each filterArray as status}
+               <div class="border border-red-500">
+                    {status}
+                    {#each suggestions as suggestion}
+                         {#if suggestion?.status === status}
+                              <a href="/suggestions/{suggestion?._id}" class="block" data-sveltekit-preload-data="hover">
+                                   <div class="py-4 px-4">
+                                        <p>{suggestion?.title}</p>
+                                        <p>{suggestion?.description}</p>
+                                        <form on:submit|preventDefault|once={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}}>
+                                             <button type="submit">{suggestion?.likes}</button>
+                                        </form>
+                                        <p>{suggestion?.tag}</p>
+                                        <p>{suggestion?.comment.length}</p>
+                                   </div>
+                              </a>
+                              <hr>
+                         {/if}
+                    {/each}
+               </div>
+          {/each}
+     </div>
      <!-- {#each suggestions as suggestion}
           {#each filterArray as status}
                {#if suggestion?.status === status}
