@@ -4,6 +4,10 @@
      export let post;
 
      let suggestions;
+     let tags;
+     let filterTags;
+     let filterStatuses;
+     let statuses;
      $: fields = {title: '', tag: '', status: '', description: ''};
 
      onMount(async () => {
@@ -15,6 +19,19 @@
                },
           });
           suggestions = await res.json();
+
+          tags = suggestions.map((item) => {
+               return item.tag;
+          })
+
+          statuses = suggestions.map((item) => {
+               return item.status;
+          })
+
+          let uniqueTags = [...new Set(tags)];
+          let uniqueStatuses = [...new Set(statuses)];
+          filterTags = [...uniqueTags];
+          filterStatuses = [...uniqueStatuses];
      });
 
      const handleValidation = (e, field) => {
@@ -81,8 +98,8 @@
                                                   <label for="tag" class="block text-sm font-medium leading-6 text-gray-900">tags</label>
                                                   <select id="tag" on:input={(event)=>{handleValidation(event, 'tag')}} value={post.tag} name="tag" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                        <option></option>
-                                                       {#each suggestions as suggestion}
-                                                            <option>{suggestion?.tag}</option>
+                                                       {#each filterTags as tag}
+                                                            <option>{tag}</option>
                                                        {/each}
                                                   </select>
                                              </div>
@@ -90,8 +107,8 @@
                                                   <label for="status" class="block text-sm font-medium leading-6 text-gray-900">status</label>
                                                   <select id="status" on:input={(event)=>{handleValidation(event, 'status')}} value={post.status} name="status" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                        <option></option>
-                                                       {#each suggestions as suggestion}
-                                                            <option>{suggestion?.status}</option>
+                                                       {#each filterStatuses as status}
+                                                            <option>{status}</option>
                                                        {/each}
                                                   </select>
                                              </div>

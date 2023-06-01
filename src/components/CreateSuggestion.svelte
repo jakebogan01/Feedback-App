@@ -3,6 +3,8 @@
      export let showCreateForm;
 
      let suggestions;
+     let filterArray;
+     let tags;
      let fields = {title: '', tag: '', description: ''};
 
      onMount(async () => {
@@ -14,6 +16,13 @@
                },
           });
           suggestions = await res.json();
+
+          tags = suggestions.map((item) => {
+               return item.tag;
+          })
+
+          let unique = [...new Set(tags)];
+          filterArray = [...unique];
      });
 </script>
 
@@ -38,8 +47,8 @@
                                                   <label for="tag" class="block text-sm font-medium leading-6 text-gray-900">tags</label>
                                                   <select id="tag" bind:value={fields.tag} name="tag" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                        <option></option>
-                                                       {#each suggestions as suggestion}
-                                                            <option>{suggestion?.tag}</option>
+                                                       {#each filterArray as tag}
+                                                            <option>{tag}</option>
                                                        {/each}
                                                   </select>
                                              </div>

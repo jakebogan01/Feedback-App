@@ -3,11 +3,13 @@
      import { preferences } from '../../../store/preferences';
      import { goto } from '$app/navigation';
      import EditSuggestion from '../../../components/EditSuggestion.svelte';
+     import { comment } from 'svelte/internal';
      export let data;
 
      let suggestion;
      let allUsers;
      let showEditForm = false;
+     let commentDescriptoin = '';
      
      onMount(async () => {
           if (!$preferences[1]) {
@@ -66,6 +68,27 @@
           }
           return;
      }
+
+     const handleCreateComment = async () => {
+          try {
+               const response = await fetch(`https://feedback-api-eight.vercel.app/suggestions/${data?.slug}`, {
+                    method: "PUT",
+                    headers: {
+                         Accept: "application.json",
+                         "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                         comment: [...suggestion.comment, { 
+                              comment: commentDescriptoin,
+                              user_id: $preferences?.[1]._id
+                         }]
+                    }),
+               });
+               update();
+          } catch (error) {
+               console.error(error.message);
+          }
+     }
 </script>
 
 {#if showEditForm && suggestion}
@@ -99,3 +122,8 @@
           <p>{comment?.comment}</p>     
      {/each}
 {/if}
+
+<form on:submit|preventDefault={handleCreateComment} class="mt-10">
+     <textarea type="text" bind:value={commentDescriptoin} name="commentDescriptoin" id="commentDescriptoin" placeholder="e.g. Web Design" required />
+     <button type="submit" class="inline-flex w-full justify-center items-center rounded-md bg-[#635FC7] px-3 h-10 text-sm font-semibold text-white shadow-sm hover:bg-[#A8A4FF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2">Add feedback</button>
+</form>
