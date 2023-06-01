@@ -2,6 +2,8 @@
      import { onMount } from 'svelte';
      import { preferences } from '../../store/preferences';
      import CreateSuggestion from '../../components/CreateSuggestion.svelte';
+     import BackLink from '../../components/BackLink.svelte';
+     import Button from '../../components/Button.svelte';
 
      let showCreateForm = false;
      let filterArray;
@@ -67,53 +69,59 @@
      }
 </script>
 
-<button type="button" on:click={()=>{showCreateForm = true}}>create new suggestion</button>
+<div>
+     <section class="relative flex items-center justify-between px-6 py-2 bg-[#10263E] py-[1.875rem] z-50">
+          <div class="text-13 text-[#F3F4FE]">
+               <BackLink link="/" linkStyles="text-white" />
+               <h1 class="font-bold text-lg">Roadmap</h1>
+          </div>
+          <div>
+               <Button bind:showForm={showCreateForm} buttonStyles="bg-[#AD1FE9]" buttonText="&#43; Add Feedback" />
+          </div>
+     </section>
 
-{#if showCreateForm}
-     <CreateSuggestion bind:showCreateForm={showCreateForm} />
-{/if}
+     {#if showCreateForm}
+          <CreateSuggestion bind:showCreateForm={showCreateForm} />
+     {/if}
 
-{#if suggestions}
-     <div class="flex">
-          {#each filterArray as status}
-               <div class="border border-red-500">
-                    {status}
-                    {#each suggestions as suggestion}
-                         {#if suggestion?.status === status}
-                              <a href="/suggestions/{suggestion?._id}" class="block" data-sveltekit-preload-data="hover">
-                                   <div class="py-4 px-4">
-                                        <p>{suggestion?.title}</p>
-                                        <p>{suggestion?.description}</p>
-                                        <form on:submit|preventDefault|once={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}}>
-                                             <button type="submit">{suggestion?.likes}</button>
-                                        </form>
-                                        <p>{suggestion?.tag}</p>
-                                        <p>{suggestion?.comment.length}</p>
-                                   </div>
-                              </a>
-                              <hr>
-                         {/if}
-                    {/each}
+     {#if suggestions}
+          <main class="bg-[#F7F8FE] h-screen">
+               <div class="flex items-center text-center">
+                    <div class="relative flex-1">
+                         Planned (2)
+                         <div class="absolute bottom-0 left-0 right-0 w-full h-1 bg-[#F49F85]"></div>
+                    </div>
+                    <div class="relative flex-1">
+                         In-Progress (0)
+                         <div class="absolute bottom-0 left-0 right-0 w-full h-1 bg-[#AD1FE9]"></div>
+                    </div>
+                    <div class="relative flex-1">
+                         Live (1)
+                         <div class="absolute bottom-0 left-0 right-0 w-full h-1 bg-[#63BCFB]"></div>
+                    </div>
                </div>
-          {/each}
-     </div>
-     <!-- {#each suggestions as suggestion}
-          {#each filterArray as status}
-               {#if suggestion?.status === status}
-                    <a href="/suggestions/{suggestion?._id}" class="block">
+
+               <!-- {#each filterArray as status}
+                    <div class="border border-red-500">
                          {status}
-                         <div class="py-4 px-4">
-                              <p>{suggestion?.title}</p>
-                              <p>{suggestion?.description}</p>
-                              <form on:submit|preventDefault|once={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}}>
-                                   <button type="submit">{suggestion?.likes}</button>
-                              </form>
-                              <p>{suggestion?.tag}</p>
-                              <p>{suggestion?.comment.length}</p>
-                         </div>
-                    </a>
-                    <hr>
-               {/if}
-          {/each}
-     {/each} -->
-{/if}
+                         {#each suggestions as suggestion}
+                              {#if suggestion?.status === status}
+                                   <a href="/suggestions/{suggestion?._id}" class="block" data-sveltekit-preload-data="hover">
+                                        <div class="py-4 px-4">
+                                             <p>{suggestion?.title}</p>
+                                             <p>{suggestion?.description}</p>
+                                             <form on:submit|preventDefault|once={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}}>
+                                                  <button type="submit">{suggestion?.likes}</button>
+                                             </form>
+                                             <p>{suggestion?.tag}</p>
+                                             <p>{suggestion?.comment.length}</p>
+                                        </div>
+                                   </a>
+                                   <hr>
+                              {/if}
+                         {/each}
+                    </div>
+               {/each} -->
+          </main>
+     {/if}
+</div>

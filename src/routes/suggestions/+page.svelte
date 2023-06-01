@@ -163,7 +163,7 @@
                <div class="bg-white p-6 rounded-[0.625rem]">
                     <div class="flex items-center justify-between">
                          <h4 class="font-bold text-lg text-[#3A4374]">Roadmap</h4>
-                         <a href="/" class="font-semibold text-13 text-[#4661E6]">View</a>
+                         <a href="/roadmap" class="font-semibold text-13 text-[#4661E6]">View</a>
                     </div>
                     <div class="mt-4">
                          {#each removeDuplicates(statuses) as status}
