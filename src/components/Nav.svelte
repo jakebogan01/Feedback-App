@@ -3,7 +3,7 @@
      export let openMenu;
 </script>
 
-<nav class="relative flex-1 md:max-w-[13.88125rem] flex items-center md:items-end justify-between bg-no-repeat bg-center bg-cover h-[11.125rem] 1440:max-h-[8.5625rem] 1440:min-w-[15.9375rem] md:rounded-[0.625rem] md:h-auo px-6 py-6 md:px-8 md:py-6 z-50" on:keydown={()=>{}} on:click|self={()=>{showDropList = false}}>
+<nav class="relative flex-1 md:max-w-[38.88125rem] flex items-center md:items-end justify-between bg-no-repeat bg-center bg-cover h-[11.125rem] 1440:max-h-[8.5625rem] 1440:min-w-[15.9375rem] md:rounded-[0.625rem] md:h-auo px-6 py-6 md:px-8 md:py-6 z-50" on:keydown={()=>{}} on:click|self={()=>{showDropList = false}}>
      <div class="mt-1 md:mt-0">
           <h1 class="font-bold text-15 md:text-xl text-white leading-none">Leadmarvels</h1>
           <span class="font-medium text-13 md:text-15 text-[#E1D5FC]">Feedback Board</span>

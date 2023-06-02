@@ -99,7 +99,7 @@
 
 {#if suggestion}
      <main class="bg-[#F7F8FE] px-6 pt-8 pb-[4.8125rem]">
-          <div class="flex items-center justify-between">
+          <div class="flex items-center justify-between max-w-[43.0625rem] mx-auto">
                <div>
                     <BackLink link="/suggestions" />
                </div>
@@ -110,7 +110,7 @@
                </div>
           </div>
 
-          <section class="space-y-6 mt-12">
+          <section class="space-y-6 mt-12 max-w-[45.625rem] mx-auto">
                <Suggestion suggestion={suggestion} on:submit={()=>{handleUpdateLikes(suggestion?.likes)}} />
                
                {#if suggestion?.comment.length >= 1}

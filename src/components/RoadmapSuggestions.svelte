@@ -24,10 +24,10 @@
                {#if currentStatus !== ""}
                     <div class="w-2 h-2 {circleStyles} rounded-full mr-2"></div>
                {/if}
-               <span class="text-[#647196]">{currentStatus}</span>
+               <span class="text-[#647196] 1440:text-base">{currentStatus}</span>
           </div>
-          <h2 class="font-bold text-[#3A4374] text-13 leading-3">{suggestion?.title}</h2>
-          <p class="text-[#647196] text-13 my-2 truncate">{suggestion?.description}</p>
+          <h2 class="font-bold text-[#3A4374] text-13 1440:text-lg leading-3">{suggestion?.title}</h2>
+          <p class="text-[#647196] text-13 1440:text-base my-2 truncate">{suggestion?.description}</p>
      </a>
      <div class="flex items-end justify-between">
           <div class="space-y-4">
@@ -35,7 +35,7 @@
                <form on:submit|preventDefault|once>
                     <button type="submit" class="flex items-center space-x-2 bg-[#F2F4FF] rounded-[0.625rem] px-4 py-1 font-bold text-[#3A4374]">
                          <img src="/shared/icon-arrow-up.svg" alt="" role="presentation">
-                         <span>{suggestion?.likes}</span>
+                         <span class="1440:text-base">{suggestion?.likes}</span>
                     </button>
                </form>
           </div>

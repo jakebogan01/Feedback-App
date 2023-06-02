@@ -82,8 +82,8 @@
      }
 </script>
 
-<div class="bg-[#F7F8FE] md:pt-14">
-     <section class="relative flex items-center justify-between md:max-w-[43.0625rem] mx-auto md:rounded-[0.625rem] px-6 py-2 md:px-9 md:py-8 bg-[#10263E] z-50">
+<div class="bg-[#F7F8FE] md:pt-14 md:px-10">
+     <section class="relative flex items-center justify-between max-w-[69.375rem] mx-auto md:rounded-[0.625rem] px-6 py-6 md:px-9 md:py-8 bg-[#10263E] z-50">
           <div class="text-13 text-[#F3F4FE]">
                <BackLink link="/" linkStyles="text-white" />
                <h1 class="font-bold text-lg md:text-2xl md:mt-2">Roadmap</h1>
@@ -98,7 +98,7 @@
      {/if}
 
      {#if suggestions}
-          <main class="h-screen md:max-w-[43.0625rem] mx-auto md:mt-8">
+          <main class="h-screen max-w-[69.375rem] mx-auto md:mt-8 1440:mt-12">
                <div class="md:hidden flex items-center text-center font-bold text-13 text-[#394273]">
                     <button on:click={()=>{currentStatus = status = 'Pending'}} type="button" class="{currentStatus === "Pending" ? "opacity-100" : " opacity-40"} block relative flex-1 py-4">
                          Pending ({pendingCount})
@@ -132,26 +132,28 @@
                     {/each}
                </section>
 
-               <div class="hidden md:grid grid-cols-3 gap-4">
+               <div class="hidden md:grid grid-cols-3 gap-4 gap-x-[0.625rem] 1440:gap-x-[1.875rem]">
                     {#each statuses as status}
                          <div>
-                              <div class="font-bold text-sm text-[#3A4374] mb-6 text-center">
+                              <div class="font-bold text-sm 1440:text-lg text-[#3A4374] mb-6 1440:mb-8 text-center">
                                    {#if status === "Pending"}
                                         <span class="block">{status} ({pendingCount})</span>
-                                        <span class="font-normal text-sm text-[#647196]">Ideas prioritized for research</span>
+                                        <span class="font-normal text-sm 1440:text-base text-[#647196]">Ideas prioritized for research</span>
                                    {:else if status === "In-Progress"}
                                         <span class="block">{status} ({inProgressCount})</span>
-                                        <span class="font-normal text-sm text-[#647196]">Currently being developed</span>
+                                        <span class="font-normal text-sm 1440:text-base text-[#647196]">Currently being developed</span>
                                    {:else if status === "Live"}
                                         <span class="block">{status} ({liveCount})</span>
-                                        <span class="font-normal text-sm text-[#647196]">Released features</span>
+                                        <span class="font-normal text-sm 1440:text-base text-[#647196]">Released features</span>
                                    {/if}
                               </div>
-                              {#each suggestions as suggestion}
-                                   {#if suggestion?.status === status}
-                                        <RoadmapSuggestions currentStatus={status} suggestion={suggestion} on:submit={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}} />
-                                   {/if}
-                              {/each}
+                              <div class="space-y-6">
+                                   {#each suggestions as suggestion}
+                                        {#if suggestion?.status === status}
+                                             <RoadmapSuggestions currentStatus={status} suggestion={suggestion} on:submit={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}} />
+                                        {/if}
+                                   {/each}
+                              </div>
                          </div>
                     {/each}
                </div>

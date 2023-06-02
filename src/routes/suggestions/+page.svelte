@@ -129,7 +129,7 @@
 </script>
 
 <div class="bg-[#F7F8FE] h-full">
-     <div class="flex flex-col 1440:flex-row md:max-w-[43.0625rem] 1440:max-w-[90rem] mx-auto 1440:space-x-[1.875rem] 1440:pt-[5.875rem]">
+     <div class="flex flex-col 1440:flex-row max-w-[69.375rem] mx-auto 1440:space-x-[1.875rem] 1440:pt-[5.875rem] md:px-10">
           
           <div class="flex flex-col md:flex-row 1440:flex-col md:items-center md:pt-14 1440:pt-0 md:pb-10 md:space-x-[0.625rem] 1440:space-x-0 1440:space-y-6">
                <Nav bind:openMenu={openMenu} bind:showDropList={showDropList} on:click={showNav} />
@@ -205,38 +205,36 @@
                {/if}
           
                <main class="relative py-8 h-screen overflow-hidden">
-                    {#if openMenu}
-                         <div class="md:hidden fixed inset-0 bg-black w-full min-h-screen bg-opacity-50 transition z-30"></div>
-                    {/if}
-          
-                    <div class="md:hidden absolute space-y-6 right-0 top-0 bottom-0 min-h-screen bg-[#F7F8FE] overflow-hidden p-6 w-full max-w-[16.9375rem] z-50 transition {openMenu ? "translate-x-0 opacity-100" : "translate-x-60 opacity-0"}">
-                         <Tags bind:tagFilter={tagFilter} bind:filterByTag={filterByTag} filterByNumbers={filterByNumbers} tags={removeDuplicates(tags)}/>
-                         <div class="bg-white p-6 md:h-[11.125rem] rounded-[0.625rem]">
-                              <div class="flex items-center justify-between">
-                                   <h4 class="font-bold text-lg text-[#3A4374]">Roadmap</h4>
-                                   <a href="/roadmap" class="font-semibold text-13 text-[#4661E6]">View</a>
-                              </div>
-                              <div class="mt-4">
-                                   {#each statuses as status, i}
-                                        <div class="flex items-center justify-between">
-                                             <div class="flex items-center">
-                                                  {#if status === "Pending"}
-                                                       <div class="w-2 h-2 bg-[#F49F85] rounded-full mr-3"></div>
-                                                  {:else if status === "In-Progress"}
-                                                       <div class="w-2 h-2 bg-[#AD1FE9] rounded-full mr-3"></div>
-                                                  {:else if status === "Live"}
-                                                       <div class="w-2 h-2 bg-[#63BCFB] rounded-full mr-3"></div>
-                                                  {/if}
-                                                  <span on:keydown={()=>{}} on:click={()=>{filterByStatus = status}} class="text-base text-[#647196]">{status}</span>
+                    <div class="md:hidden absolute top-0 bottom-0 min-h-screen bg-[#F7F8FE] overflow-hidden p-6 w-full z-50 duration-300 ease-in-out {openMenu ? "-right-[0%]" : "-right-full"}">
+                         <div class="space-y-6 max-w-[20.3125rem] mx-auto">
+                              <Tags bind:tagFilter={tagFilter} bind:filterByTag={filterByTag} filterByNumbers={filterByNumbers} tags={removeDuplicates(tags)}/>
+                              <div class="bg-white p-6 md:h-[11.125rem] rounded-[0.625rem]">
+                                   <div class="flex items-center justify-between">
+                                        <h4 class="font-bold text-lg text-[#3A4374]">Roadmap</h4>
+                                        <a href="/roadmap" class="font-semibold text-13 text-[#4661E6]">View</a>
+                                   </div>
+                                   <div class="mt-4">
+                                        {#each statuses as status, i}
+                                             <div class="flex items-center justify-between">
+                                                  <div class="flex items-center">
+                                                       {#if status === "Pending"}
+                                                            <div class="w-2 h-2 bg-[#F49F85] rounded-full mr-3"></div>
+                                                       {:else if status === "In-Progress"}
+                                                            <div class="w-2 h-2 bg-[#AD1FE9] rounded-full mr-3"></div>
+                                                       {:else if status === "Live"}
+                                                            <div class="w-2 h-2 bg-[#63BCFB] rounded-full mr-3"></div>
+                                                       {/if}
+                                                       <span on:keydown={()=>{}} on:click={()=>{filterByStatus = status}} class="text-base text-[#647196]">{status}</span>
+                                                  </div>
+                                                  <span class="font-bold text-base text-[#647196]">{count[i]}</span>
                                              </div>
-                                             <span class="font-bold text-base text-[#647196]">{count[i]}</span>
-                                        </div>
-                                   {/each}
+                                        {/each}
+                                   </div>
                               </div>
                          </div>
                     </div>
           
-                    <div class="relative space-y-4 {openMenu ? "z-0" : "z-50"}">
+                    <div class="relative space-y-4 px-6 md:px-0">
                          {#if suggestions && suggestions.length >= 1}
                               {#each copiedSuggestions as suggestion}
                                    {#if suggestion.status == filterByStatus}
