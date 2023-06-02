@@ -7,7 +7,6 @@
      import Suggestion from '../../components/Suggestion.svelte';
      import Button from '../../components/Button.svelte';
      import Tags from '../../components/Tags.svelte';
-     import Statuses from '../../components/Statuses.svelte';
 
      let suggestions;
      let updatedSuggestions;
@@ -130,7 +129,7 @@
 </script>
 
 <div class="bg-[#F7F8FE] h-full">
-     <div class="flex flex-col md:flex-row md:items-center max-w-[43.0625rem] mx-auto md:pt-14 md:pb-10 md:space-x-[0.625rem]">
+     <div class="flex flex-col md:flex-row md:items-center md:max-w-[43.0625rem] mx-auto md:pt-14 md:pb-10 md:space-x-[0.625rem]">
           <Nav bind:openMenu={openMenu} bind:showDropList={showDropList} on:click={showNav} />
 
           <div class="flex-1 hidden md:block">
@@ -138,29 +137,59 @@
           </div>
 
           <div class="flex-1 hidden md:block">
-               <Statuses statuses={statuses} filterByStatus={filterByStatus} count={count} />
+               <div class="bg-white p-6 md:h-[11.125rem] rounded-[0.625rem]">
+                    <div class="flex items-center justify-between">
+                         <h4 class="font-bold text-lg text-[#3A4374]">Roadmap</h4>
+                         <a href="/roadmap" class="font-semibold text-13 text-[#4661E6]">View</a>
+                    </div>
+                    <div class="mt-4">
+                         {#each statuses as status, i}
+                              <div class="flex items-center justify-between">
+                                   <div class="flex items-center">
+                                        {#if status === "Pending"}
+                                             <div class="w-2 h-2 bg-[#F49F85] rounded-full mr-3"></div>
+                                        {:else if status === "In-Progress"}
+                                             <div class="w-2 h-2 bg-[#AD1FE9] rounded-full mr-3"></div>
+                                        {:else if status === "Live"}
+                                             <div class="w-2 h-2 bg-[#63BCFB] rounded-full mr-3"></div>
+                                        {/if}
+                                        <span on:keydown={()=>{}} on:click={()=>{filterByStatus = status}} class="text-base text-[#647196]">{status}</span>
+                                   </div>
+                                   <span class="font-bold text-base text-[#647196]">{count[i]}</span>
+                              </div>
+                         {/each}
+                    </div>
+               </div>
           </div>
      </div>
 
-     <div class="relative flex items-center justify-between px-6 py-2 bg-[#10263E] z-50" on:keydown={()=>{}} on:click|self={()=>{showDropList = false}}>
+     <div class="relative flex items-center justify-between md:max-w-[43.0625rem] mx-auto md:rounded-[0.625rem] px-6 py-2 md:py-3.5 md:px-3 bg-[#10263E] z-50" on:keydown={()=>{}} on:click|self={()=>{showDropList = false}}>
           <div on:keydown={()=>{}} on:click={()=>{showDropList = !showDropList}} class="flex items-center text-13 text-[#F3F4FE]">
-               <label for="filter" class="whitespace-nowrap">Sort by :</label>
-               <div class="relative">
-                    <button  type="button" class="relative cursor-pointer bg-transparent text-left ring-0 ring-inset ring-transparent focus:outline-none focus:ring-0 focus:ring-transparent" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
-                         <span class="block truncate font-bold text-13 text-[#F3F4FE] pl-1">{filterByNumbers}</span>
-                         <span class="pointer-events-none absolute inset-y-0 -right-4 flex items-center">
-                              <svg width="9" height="7" class="w-full" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Path 2" d="M1 1L5 5L9 1" stroke="white" stroke-width="2"/></svg>
-                         </span>
-                    </button>
-                    {#if showDropList}
-                         <ul class="absolute mt-1 overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50" tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
-                              {#each filterOptions as option}
-                                   <li on:keydown={()=>{}} on:click={()=>{showDropList = false; filterByNumbers = option}} class="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover:text-gray-400" id="listbox-option-0" role="option" aria-selected>
-                                        <span class="text-13 block truncate">{option}</span>
-                                   </li>
-                              {/each}
-                         </ul>
+               <div class="hidden md:flex items-center mr-10">
+                    <img src="/suggestions/icon-suggestions.svg" alt="" role="presentation" class="mr-4">
+                    {#if suggestions}
+                         <span class="font-bold text-white text-lg">{suggestions.length} Suggestions</span>
                     {/if}
+               </div>
+               <div class="flex items-center md:mt-0.5">
+                    <label for="filter" class="whitespace-nowrap md:text-sm">Sort by :</label>
+                    <div class="relative">
+                         <button  type="button" class="relative cursor-pointer bg-transparent text-left ring-0 ring-inset ring-transparent focus:outline-none focus:ring-0 focus:ring-transparent" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
+                              <span class="block truncate font-bold text-13 md:text-sm text-[#F3F4FE] pl-1">{filterByNumbers}</span>
+                              <span class="pointer-events-none absolute inset-y-0 -right-4 flex items-center">
+                                   <svg width="9" height="7" class="w-full" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Path 2" d="M1 1L5 5L9 1" stroke="white" stroke-width="2"/></svg>
+                              </span>
+                         </button>
+                         {#if showDropList}
+                              <ul class="absolute mt-1 overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50" tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
+                                   {#each filterOptions as option}
+                                        <li on:keydown={()=>{}} on:click={()=>{showDropList = false; filterByNumbers = option}} class="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover:text-gray-400" id="listbox-option-0" role="option" aria-selected>
+                                             <span class="text-13 block truncate">{option}</span>
+                                        </li>
+                                   {/each}
+                              </ul>
+                         {/if}
+                    </div>
                </div>
           </div>
           <div>
@@ -179,10 +208,32 @@
 
           <div class="md:hidden absolute space-y-6 right-0 top-0 bottom-0 min-h-screen bg-[#F7F8FE] overflow-hidden p-6 w-full max-w-[16.9375rem] z-50 transition {openMenu ? "translate-x-0 opacity-100" : "translate-x-60 opacity-0"}">
                <Tags bind:tagFilter={tagFilter} bind:filterByTag={filterByTag} filterByNumbers={filterByNumbers} tags={removeDuplicates(tags)}/>
-               <Statuses statuses={statuses} filterByStatus={filterByStatus} count={count} />
+               <div class="bg-white p-6 md:h-[11.125rem] rounded-[0.625rem]">
+                    <div class="flex items-center justify-between">
+                         <h4 class="font-bold text-lg text-[#3A4374]">Roadmap</h4>
+                         <a href="/roadmap" class="font-semibold text-13 text-[#4661E6]">View</a>
+                    </div>
+                    <div class="mt-4">
+                         {#each statuses as status, i}
+                              <div class="flex items-center justify-between">
+                                   <div class="flex items-center">
+                                        {#if status === "Pending"}
+                                             <div class="w-2 h-2 bg-[#F49F85] rounded-full mr-3"></div>
+                                        {:else if status === "In-Progress"}
+                                             <div class="w-2 h-2 bg-[#AD1FE9] rounded-full mr-3"></div>
+                                        {:else if status === "Live"}
+                                             <div class="w-2 h-2 bg-[#63BCFB] rounded-full mr-3"></div>
+                                        {/if}
+                                        <span on:keydown={()=>{}} on:click={()=>{filterByStatus = status}} class="text-base text-[#647196]">{status}</span>
+                                   </div>
+                                   <span class="font-bold text-base text-[#647196]">{count[i]}</span>
+                              </div>
+                         {/each}
+                    </div>
+               </div>
           </div>
 
-          <div class="relative space-y-4 {openMenu ? "z-0" : "z-50"}">
+          <div class="relative space-y-4 md:max-w-[43.0625rem] mx-auto {openMenu ? "z-0" : "z-50"}">
                {#if suggestions && suggestions.length >= 1}
                     {#each copiedSuggestions as suggestion}
                          {#if suggestion.status == filterByStatus}
@@ -194,10 +245,12 @@
                          {/if}
                     {/each}
                {:else}
-                    <div class="flex flex-col items-center justify-center bg-white py-[4.75rem] px-[1.625rem] text-center rounded-[0.625rem]">
+                    <div class="flex flex-col items-center justify-center bg-white py-[4.75rem] md:py-[6.9375rem] px-[1.625rem] text-center rounded-[0.625rem]">
                          <img src="/suggestions/illustration-empty.svg" alt="">
-                         <h2 class="font-bold text-lg text-[#3A4374] leading-none mt-10">There is no feedback yet.</h2>
-                         <p class="text-13 text-[#647196] my-6">Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to improve our app.</p>
+                         <div class="md:max-w-[25.625rem]">
+                              <h2 class="font-bold text-lg md:text-2xl text-[#3A4374] leading-none mt-10">There is no feedback yet.</h2>
+                              <p class="text-13 md:text-base text-[#647196] my-6 md:mt-4 md:mb-10">Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to improve our app.</p>
+                         </div>
                          <div>
                               <Button bind:showForm={showCreateForm} buttonStyles="bg-[#AD1FE9]" buttonText="&#43; Add Feedback" />
                          </div>
