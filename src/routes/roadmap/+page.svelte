@@ -6,6 +6,7 @@
      import Button from '../../components/Button.svelte';
      import Suggestion from '../../components/Suggestion.svelte';
      import { goto } from '$app/navigation';
+     import RoadmapSuggestions from '../../components/RoadmapSuggestions.svelte';
 
      let showCreateForm = false;
      let suggestions;
@@ -81,11 +82,11 @@
      }
 </script>
 
-<div>
-     <section class="relative flex items-center justify-between px-6 py-2 bg-[#10263E] z-50">
+<div class="bg-[#F7F8FE] md:pt-14">
+     <section class="relative flex items-center justify-between md:max-w-[43.0625rem] mx-auto md:rounded-[0.625rem] px-6 py-2 md:px-9 md:py-8 bg-[#10263E] z-50">
           <div class="text-13 text-[#F3F4FE]">
                <BackLink link="/" linkStyles="text-white" />
-               <h1 class="font-bold text-lg">Roadmap</h1>
+               <h1 class="font-bold text-lg md:text-2xl md:mt-2">Roadmap</h1>
           </div>
           <div>
                <Button bind:showForm={showCreateForm} buttonStyles="bg-[#AD1FE9]" buttonText="&#43; Add Feedback" />
@@ -97,8 +98,8 @@
      {/if}
 
      {#if suggestions}
-          <main class="bg-[#F7F8FE] h-screen">
-               <div class="flex items-center text-center font-bold text-13 text-[#394273]">
+          <main class="h-screen md:max-w-[43.0625rem] mx-auto md:mt-8">
+               <div class="md:hidden flex items-center text-center font-bold text-13 text-[#394273]">
                     <button on:click={()=>{currentStatus = status = 'Pending'}} type="button" class="{currentStatus === "Pending" ? "opacity-100" : " opacity-40"} block relative flex-1 py-4">
                          Pending ({pendingCount})
                          <div class="absolute bottom-0 left-0 right-0 w-full h-1 bg-[#F49F85]"></div>
@@ -113,7 +114,7 @@
                     </button>
                </div>
 
-               <section class="px-6 pt-8 pb-[4.8125rem]">
+               <section class="md:hidden px-6 pt-8 pb-[4.8125rem]">
                     {#each statuses as status}
                          {#if currentStatus === status}
                               <div class="mb-6">
@@ -123,7 +124,7 @@
                               <div class="space-y-4">
                                    {#each suggestions as suggestion}
                                         {#if suggestion?.status === status}
-                                                  <Suggestion currentStatus={status} suggestion={suggestion} on:submit={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}} />
+                                             <Suggestion currentStatus={status} suggestion={suggestion} on:submit={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}} />
                                         {/if}
                                    {/each}
                               </div>
@@ -131,27 +132,29 @@
                     {/each}
                </section>
 
-               <!-- {#each filterArray as status}
-                    <div class="border border-red-500">
-                         {status}
-                         {#each suggestions as suggestion}
-                              {#if suggestion?.status === status}
-                                   <a href="/suggestions/{suggestion?._id}" class="block" data-sveltekit-preload-data="hover">
-                                        <div class="py-4 px-4">
-                                             <p>{suggestion?.title}</p>
-                                             <p>{suggestion?.description}</p>
-                                             <form on:submit|preventDefault|once={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}}>
-                                                  <button type="submit">{suggestion?.likes}</button>
-                                             </form>
-                                             <p>{suggestion?.tag}</p>
-                                             <p>{suggestion?.comment.length}</p>
-                                        </div>
-                                   </a>
-                                   <hr>
-                              {/if}
-                         {/each}
-                    </div>
-               {/each} -->
+               <div class="hidden md:grid grid-cols-3 gap-4">
+                    {#each statuses as status}
+                         <div>
+                              <div class="font-bold text-sm text-[#3A4374] mb-6 text-center">
+                                   {#if status === "Pending"}
+                                        <span class="block">{status} ({pendingCount})</span>
+                                        <span class="font-normal text-sm text-[#647196]">Ideas prioritized for research</span>
+                                   {:else if status === "In-Progress"}
+                                        <span class="block">{status} ({inProgressCount})</span>
+                                        <span class="font-normal text-sm text-[#647196]">Currently being developed</span>
+                                   {:else if status === "Live"}
+                                        <span class="block">{status} ({liveCount})</span>
+                                        <span class="font-normal text-sm text-[#647196]">Released features</span>
+                                   {/if}
+                              </div>
+                              {#each suggestions as suggestion}
+                                   {#if suggestion?.status === status}
+                                        <RoadmapSuggestions currentStatus={status} suggestion={suggestion} on:submit={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}} />
+                                   {/if}
+                              {/each}
+                         </div>
+                    {/each}
+               </div>
           </main>
      {/if}
 </div>
