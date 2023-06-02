@@ -137,6 +137,11 @@
      const showNav = () => {
           openMenu = !openMenu;
      }
+
+     const logout = () => {
+          localStorage.clear();
+          window.location.replace("/");
+     }
 </script>
 
 <div class="bg-[#F7F8FE] dark:bg-[#0F172A] h-full">
@@ -176,7 +181,8 @@
                </div>
 
                <div class="1440:w-full hidden md:flex flex-row md:flex-col 1440:flex-row items-center space-x-4 md:space-x-0 1440:space-x-4 md:space-y-4 1440:space-y-0 1440:pt-10">
-                    <button type="button" class="flex justify-center items-center bg-white hover:bg-gray-200 dark:bg-[#1E283A] dark:text-white p-6 h-[4.5rem] w-[4.5rem] 1440:w-full rounded-[0.625rem] cursor-pointer">
+                    <button on:click={logout} type="button" class="flex justify-center items-center bg-white hover:bg-gray-200 dark:bg-[#1E283A] dark:text-white p-6 h-[4.5rem] w-[4.5rem] 1440:w-full rounded-[0.625rem] cursor-pointer">
+                         <span class="sr-only">log out</span>
                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z" clip-rule="evenodd" /></svg>
                     </button>
 
@@ -258,7 +264,8 @@
                                    </div>
                               </div>
                               <div class="flex items-center space-x-4">
-                                   <button type="button" class="bg-white hover:bg-gray-200 dark:bg-[#1E283A] dark:text-white p-6 md:h-[11.125rem] rounded-[0.625rem] cursor-pointer">
+                                   <button on:click={logout} type="button" class="bg-white hover:bg-gray-200 dark:bg-[#1E283A] dark:text-white p-6 md:h-[11.125rem] rounded-[0.625rem] cursor-pointer">
+                                        <span class="sr-only">log out</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z" clip-rule="evenodd" /></svg>
                                    </button>
 
