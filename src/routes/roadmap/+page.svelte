@@ -159,4 +159,5 @@
                </div>
           </main>
      {/if}
+     <span class="block text-center text-gray-300 text-sm pb-10">© 2023 Lead Marvels, Inc. All rights reserved.</span>
 </div>

@@ -181,12 +181,12 @@
                </div>
 
                <div class="1440:w-full hidden md:flex flex-row md:flex-col 1440:flex-row items-center space-x-4 md:space-x-0 1440:space-x-4 md:space-y-4 1440:space-y-0 1440:pt-10">
-                    <button on:click={logout} type="button" class="flex justify-center items-center bg-white hover:bg-gray-200 dark:bg-[#1E283A] dark:text-white p-6 h-[5.0625rem] 1440:h-[4.5rem] w-[4.5rem] 1440:w-full rounded-[0.625rem] cursor-pointer">
+                    <button on:click={logout} type="button" class="flex justify-center items-center bg-white hover:bg-gray-200 dark:bg-[#1E283A] dark:hover:bg-gray-700 dark:text-white p-6 h-[5.0625rem] 1440:h-[4.5rem] w-[4.5rem] 1440:w-full rounded-[0.625rem] cursor-pointer">
                          <span class="sr-only">log out</span>
                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z" clip-rule="evenodd" /></svg>
                     </button>
 
-                    <button on:click={themeSwitch} type="button" class="flex justify-center items-center bg-white hover:bg-gray-200 dark:bg-[#1E283A] dark:text-white p-6 h-[5.0625rem] 1440:h-[4.5rem] w-[4.5rem] 1440:w-full rounded-[0.625rem] cursor-pointer">
+                    <button on:click={themeSwitch} type="button" class="flex justify-center items-center bg-white hover:bg-gray-200 dark:hover:bg-gray-700 dark:bg-[#1E283A] dark:text-white p-6 h-[5.0625rem] 1440:h-[4.5rem] w-[4.5rem] 1440:w-full rounded-[0.625rem] cursor-pointer">
                          {#if darkMode}
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" /></svg>
                          {:else}
@@ -264,12 +264,12 @@
                                    </div>
                               </div>
                               <div class="flex items-center space-x-4">
-                                   <button on:click={logout} type="button" class="bg-white hover:bg-gray-200 dark:bg-[#1E283A] dark:text-white p-6 md:h-[11.125rem] rounded-[0.625rem] cursor-pointer">
+                                   <button on:click={logout} type="button" class="bg-white hover:bg-gray-200 dark:bg-[#1E283A] dark:hover:bg-gray-700 dark:text-white p-6 md:h-[11.125rem] rounded-[0.625rem] cursor-pointer">
                                         <span class="sr-only">log out</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z" clip-rule="evenodd" /></svg>
                                    </button>
 
-                                   <button on:click={themeSwitch} type="button" class="bg-white hover:bg-gray-200 dark:bg-[#1E283A] dark:text-white p-6 md:h-[11.125rem] rounded-[0.625rem] cursor-pointer">
+                                   <button on:click={themeSwitch} type="button" class="bg-white hover:bg-gray-200 dark:bg-[#1E283A] dark:hover:bg-gray-700 dark:text-white p-6 md:h-[11.125rem] rounded-[0.625rem] cursor-pointer">
                                         {#if darkMode}
                                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" /></svg>
                                         {:else}
@@ -311,4 +311,5 @@
                </main>
           </div>
      </div>
+     <span class="block text-center text-gray-300 text-sm pb-10">© 2023 Lead Marvels, Inc. All rights reserved.</span>
 </div>
