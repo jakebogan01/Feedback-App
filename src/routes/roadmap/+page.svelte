@@ -82,7 +82,7 @@
 </script>
 
 <div>
-     <section class="relative flex items-center justify-between px-6 py-2 bg-[#10263E] py-[1.875rem] z-50">
+     <section class="relative flex items-center justify-between px-6 py-2 bg-[#10263E] z-50">
           <div class="text-13 text-[#F3F4FE]">
                <BackLink link="/" linkStyles="text-white" />
                <h1 class="font-bold text-lg">Roadmap</h1>

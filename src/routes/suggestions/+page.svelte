@@ -6,6 +6,8 @@
      import Nav from '../../components/Nav.svelte';
      import Suggestion from '../../components/Suggestion.svelte';
      import Button from '../../components/Button.svelte';
+     import Tags from '../../components/Tags.svelte';
+     import Statuses from '../../components/Statuses.svelte';
 
      let suggestions;
      let updatedSuggestions;
@@ -128,7 +130,17 @@
 </script>
 
 <div class="bg-[#F7F8FE] h-full">
-     <Nav bind:openMenu={openMenu} bind:showDropList={showDropList} on:click={showNav} />
+     <div class="flex flex-col md:flex-row md:items-center max-w-[43.0625rem] mx-auto md:pt-14 md:pb-10 md:space-x-[0.625rem]">
+          <Nav bind:openMenu={openMenu} bind:showDropList={showDropList} on:click={showNav} />
+
+          <div class="flex-1 hidden md:block">
+               <Tags bind:tagFilter={tagFilter} bind:filterByTag={filterByTag} filterByNumbers={filterByNumbers} tags={removeDuplicates(tags)}/>
+          </div>
+
+          <div class="flex-1 hidden md:block">
+               <Statuses statuses={statuses} filterByStatus={filterByStatus} count={count} />
+          </div>
+     </div>
 
      <div class="relative flex items-center justify-between px-6 py-2 bg-[#10263E] z-50" on:keydown={()=>{}} on:click|self={()=>{showDropList = false}}>
           <div on:keydown={()=>{}} on:click={()=>{showDropList = !showDropList}} class="flex items-center text-13 text-[#F3F4FE]">
@@ -162,39 +174,12 @@
 
      <main class="relative px-6 py-8 h-screen overflow-hidden">
           {#if openMenu}
-               <div class="fixed inset-0 bg-black w-full min-h-screen bg-opacity-50 transition z-30"></div>
+               <div class="md:hidden fixed inset-0 bg-black w-full min-h-screen bg-opacity-50 transition z-30"></div>
           {/if}
 
-          <div class="absolute space-y-6 right-0 top-0 bottom-0 min-h-screen bg-[#F7F8FE] overflow-hidden p-6 w-full max-w-[16.9375rem] z-50 transition {openMenu ? "translate-x-0 opacity-100" : "translate-x-60 opacity-0"}">
-               <div class="flex flex-wrap justify-evenly bg-white p-6 rounded-[0.625rem] gap-x-2 gap-y-3.5">
-                    <span on:keydown={()=>{}} on:click={()=>{tagFilter = false; filterByTag = ''; filterByNumbers = ''}} class="block bg-[#F2F4FF] rounded-[0.625rem] px-4 py-1 font-semibold text-[#4661E6]">All</span>
-                    {#each removeDuplicates(tags) as tag}
-                         <span on:keydown={()=>{}} on:click={()=>{tagFilter = true; filterByTag = tag; filterByNumbers = ''}} class="block bg-[#F2F4FF] rounded-[0.625rem] px-4 py-1 font-semibold text-[#4661E6]">{tag}</span>
-                    {/each}
-               </div>
-               <div class="bg-white p-6 rounded-[0.625rem]">
-                    <div class="flex items-center justify-between">
-                         <h4 class="font-bold text-lg text-[#3A4374]">Roadmap</h4>
-                         <a href="/roadmap" class="font-semibold text-13 text-[#4661E6]">View</a>
-                    </div>
-                    <div class="mt-4">
-                         {#each statuses as status, i}
-                              <div class="flex items-center justify-between">
-                                   <div class="flex items-center">
-                                        {#if status === "Pending"}
-                                             <div class="w-2 h-2 bg-[#F49F85] rounded-full mr-2"></div>
-                                        {:else if status === "In-Progress"}
-                                             <div class="w-2 h-2 bg-[#AD1FE9] rounded-full mr-2"></div>
-                                        {:else if status === "Live"}
-                                             <div class="w-2 h-2 bg-[#63BCFB] rounded-full mr-2"></div>
-                                        {/if}
-                                        <span on:keydown={()=>{}} on:click={()=>{filterByStatus = status}} class="text-base text-[#647196]">{status}</span>
-                                   </div>
-                                   <span class="font-bold text-base text-[#647196]">{count[i]}</span>
-                              </div>
-                         {/each}
-                    </div>
-               </div>
+          <div class="md:hidden absolute space-y-6 right-0 top-0 bottom-0 min-h-screen bg-[#F7F8FE] overflow-hidden p-6 w-full max-w-[16.9375rem] z-50 transition {openMenu ? "translate-x-0 opacity-100" : "translate-x-60 opacity-0"}">
+               <Tags bind:tagFilter={tagFilter} bind:filterByTag={filterByTag} filterByNumbers={filterByNumbers} tags={removeDuplicates(tags)}/>
+               <Statuses statuses={statuses} filterByStatus={filterByStatus} count={count} />
           </div>
 
           <div class="relative space-y-4 {openMenu ? "z-0" : "z-50"}">
