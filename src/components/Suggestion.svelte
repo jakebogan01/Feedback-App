@@ -23,7 +23,7 @@
           <form on:submit|preventDefault|once>
                <button type="submit" class="flex flex-row md:flex-col items-center md:justify-center space-x-2 md:space-x-0 bg-[#F2F4FF] rounded-[0.625rem] px-4 py-1 md:p-0 md:w-10 md:h-[3.3125rem] font-bold text-[#3A4374]">
                     <img src="/shared/icon-arrow-up.svg" alt="" role="presentation">
-                    <span>{suggestion?.likes}</span>
+                    <span class="mt-1">{suggestion?.likes}</span>
                </button>
           </form>
      </div>
