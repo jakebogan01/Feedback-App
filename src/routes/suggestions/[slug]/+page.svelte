@@ -165,7 +165,7 @@
                     </form>
                </section>
           </div>
-          <span class="block text-center text-gray-300 text-sm">© 2023 Lead Marvels, Inc. All rights reserved.</span>
+          <span class="block text-center text-gray-300 text-sm">© 2023 Lead Marvels, Inc. All rights reserved.  <a href="https://leadmarvels.com" class="underline">Home Site</a>.  <a href="https://lmdashboard.com/nova/dashboards/main" class="underline">Dashboard</a></span>
      </main>
 {:else}
      <div class="bg-white dark:bg-[#0F172A] h-full" style="min-height: 100dvh;"></div>

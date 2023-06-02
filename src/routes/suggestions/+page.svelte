@@ -311,5 +311,5 @@
                </main>
           </div>
      </div>
-     <span class="block text-center text-gray-300 text-sm pb-10">© 2023 Lead Marvels, Inc. All rights reserved.</span>
+     <span class="block text-center text-gray-300 text-sm pb-10">© 2023 Lead Marvels, Inc. All rights reserved.  <a href="https://leadmarvels.com" class="underline">Home Site</a>.  <a href="https://lmdashboard.com/nova/dashboards/main" class="underline">Dashboard</a></span>
 </div>
