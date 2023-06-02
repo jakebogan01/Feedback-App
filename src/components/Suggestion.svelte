@@ -1,9 +1,31 @@
 <script>
      export let suggestion;
+     export let currentStatus = '';
+     let borderStyles = '';
+     let circleStyles = '';
+
+     $: {
+          if (currentStatus === "Pending") {
+               borderStyles = 'border-t-[0.375rem] border-[#F49F85]';
+               circleStyles = 'bg-[#F49F85]';
+          } else if (currentStatus === "In-Progress") {
+               borderStyles = 'border-t-[0.375rem] border-[#AD1FE9]';
+               circleStyles = 'bg-[#AD1FE9]';
+          } else if (currentStatus === "Live") {
+               borderStyles = 'border-t-[0.375rem] border-[#63BCFB]';
+               circleStyles = 'bg-[#63BCFB]';
+          }
+     }
 </script>
 
-<div class="bg-white p-6 rounded-[0.625rem] text-13" data-sveltekit-preload-data="hover">
+<div class="bg-white p-6 rounded-[0.625rem] text-13 {currentStatus !== "" ? borderStyles : ""}" data-sveltekit-preload-data="hover">
      <a href="/suggestions/{suggestion?._id}" class="block">
+          <div class="flex items-center {currentStatus !== "" ? "mb-4" : ""}">
+               {#if currentStatus !== ""}
+                    <div class="w-2 h-2 {circleStyles} rounded-full mr-2"></div>
+               {/if}
+               <span class="text-[#647196]">{currentStatus}</span>
+          </div>
           <h2 class="font-bold text-[#3A4374] leading-3">{suggestion?.title}</h2>
           <p class="text-[#647196] my-2">{suggestion?.description}</p>
      </a>

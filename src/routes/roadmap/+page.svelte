@@ -4,11 +4,13 @@
      import CreateSuggestion from '../../components/CreateSuggestion.svelte';
      import BackLink from '../../components/BackLink.svelte';
      import Button from '../../components/Button.svelte';
+     import Suggestion from '../../components/Suggestion.svelte';
+     import { goto } from '$app/navigation';
 
      let showCreateForm = false;
-     let filterArray;
      let suggestions;
-     let statuses;
+     let statuses = ['Pending', 'In-Progress', 'Live'];
+     let currentStatus = 'Pending';
 
      onMount(async () => {
           if (!$preferences[1]) {
@@ -23,13 +25,6 @@
                },
           });
           suggestions = await res.json();
-
-          statuses = suggestions.map((item) => {
-               return item.status;
-          })
-
-          let unique = [...new Set(statuses)];
-          filterArray = [...unique];
      })
 
      async function update() {
@@ -86,20 +81,38 @@
 
      {#if suggestions}
           <main class="bg-[#F7F8FE] h-screen">
-               <div class="flex items-center text-center">
-                    <div class="relative flex-1">
-                         Planned (2)
+               <div class="flex items-center text-center font-bold text-13 text-[#394273]">
+                    <button on:click={()=>{currentStatus = status = 'Pending'}} type="button" class="{currentStatus === "Pending" ? "opacity-100" : " opacity-40"} block relative flex-1 py-4">
+                         Pending (2)
                          <div class="absolute bottom-0 left-0 right-0 w-full h-1 bg-[#F49F85]"></div>
-                    </div>
-                    <div class="relative flex-1">
+                    </button>
+                    <button on:click={()=>{currentStatus = status = 'In-Progress'}} type="button" class="{currentStatus === "In-Progress" ? "opacity-100" : " opacity-40"} block relative flex-1 py-4">
                          In-Progress (0)
                          <div class="absolute bottom-0 left-0 right-0 w-full h-1 bg-[#AD1FE9]"></div>
-                    </div>
-                    <div class="relative flex-1">
+                    </button>
+                    <button on:click={()=>{currentStatus = status = 'Live'}} type="button" class="{currentStatus === "Live" ? "opacity-100" : " opacity-40"} block relative flex-1 py-4">
                          Live (1)
                          <div class="absolute bottom-0 left-0 right-0 w-full h-1 bg-[#63BCFB]"></div>
-                    </div>
+                    </button>
                </div>
+
+               <section class="px-6 pt-8 pb-[4.8125rem]">
+                    {#each statuses as status}
+                         {#if currentStatus === status}
+                              <div class="mb-6">
+                                   <h2 class="font-bold text-lg text-[3A4374]">{status}</h2>
+                                   <span class="text-13 text-[#647196]">Features currently being developed</span>
+                              </div>
+                              <div class="space-y-4">
+                                   {#each suggestions as suggestion}
+                                        {#if suggestion?.status === status}
+                                                  <Suggestion currentStatus={status} suggestion={suggestion} on:submit={()=>{handleUpdateLikes(suggestion?._id, suggestion?.likes)}} />
+                                        {/if}
+                                   {/each}
+                              </div>
+                         {/if}
+                    {/each}
+               </section>
 
                <!-- {#each filterArray as status}
                     <div class="border border-red-500">
