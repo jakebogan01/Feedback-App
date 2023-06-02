@@ -98,7 +98,7 @@
 {/if}
 
 {#if suggestion}
-     <main class="bg-[#F7F8FE] px-6 pt-8 pb-[4.8125rem]">
+     <main class="bg-[#F7F8FE] px-6 pt-8 pb-[4.8125rem] h-full" style="min-height: 100dvh;">
           <div class="flex items-center justify-between max-w-[43.0625rem] mx-auto">
                <div>
                     <BackLink link="/suggestions" />
