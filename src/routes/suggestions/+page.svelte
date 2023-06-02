@@ -14,7 +14,7 @@
      let filterByNumbers = 'Most Upvotes';
      let filterByStatus = 'Pending';
      let tags;
-     let statuses;
+     let statuses = ['Pending', 'In-Progress', 'Live'];
      let showCreateForm = false;
      let showDropList = false
      let filterOptions = ['Most Upvotes', 'Least Upvotes', 'Most Comments', 'Least Comments'];
@@ -59,13 +59,13 @@
                          return item.tag;
                     }
                })
-
-               statuses = suggestions.map((item) => {
-                    return item.status;
-               })
           }
      })
 
+     let pendingCount = 0;
+     let inProgressCount = 0;
+     let liveCount = 0;
+     let count = [];
      let copiedSuggestions = [];
      $: {
           if (suggestions) {
@@ -82,6 +82,18 @@
                if (filterByNumbers == 'Most Comments') {
                     copiedSuggestions.sort((a, b) => parseFloat(b.comment.length) - parseFloat(a.comment.length));
                }
+
+               pendingCount = suggestions.reduce(function (r, a) {
+                    return r + +(a.status === 'Pending');
+               }, 0);
+               inProgressCount = suggestions.reduce(function (r, a) {
+                    return r + +(a.status === 'In-Progress');
+               }, 0);
+               liveCount = suggestions.reduce(function (r, a) {
+                    return r + +(a.status === 'Live');
+               }, 0);
+
+               count = [pendingCount, inProgressCount, liveCount]
           }
      }
      
@@ -166,13 +178,19 @@
                          <a href="/roadmap" class="font-semibold text-13 text-[#4661E6]">View</a>
                     </div>
                     <div class="mt-4">
-                         {#each removeDuplicates(statuses) as status}
+                         {#each statuses as status, i}
                               <div class="flex items-center justify-between">
                                    <div class="flex items-center">
-                                        <div class="w-2 h-2 bg-[#F49F85] rounded-full mr-2"></div>
+                                        {#if status === "Pending"}
+                                             <div class="w-2 h-2 bg-[#F49F85] rounded-full mr-2"></div>
+                                        {:else if status === "In-Progress"}
+                                             <div class="w-2 h-2 bg-[#AD1FE9] rounded-full mr-2"></div>
+                                        {:else if status === "Live"}
+                                             <div class="w-2 h-2 bg-[#63BCFB] rounded-full mr-2"></div>
+                                        {/if}
                                         <span on:keydown={()=>{}} on:click={()=>{filterByStatus = status}} class="text-base text-[#647196]">{status}</span>
                                    </div>
-                                   <span class="font-bold text-base text-[#647196]">2</span>
+                                   <span class="font-bold text-base text-[#647196]">{count[i]}</span>
                               </div>
                          {/each}
                     </div>

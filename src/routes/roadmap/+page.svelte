@@ -27,6 +27,23 @@
           suggestions = await res.json();
      })
 
+     let pendingCount = 0;
+     let inProgressCount = 0;
+     let liveCount = 0;
+
+     $: {
+          if (suggestions) {
+               pendingCount = suggestions.reduce(function (r, a) {
+                    return r + +(a.status === 'Pending');
+               }, 0);
+               inProgressCount = suggestions.reduce(function (r, a) {
+                    return r + +(a.status === 'In-Progress');
+               }, 0);
+               liveCount = suggestions.reduce(function (r, a) {
+                    return r + +(a.status === 'Live');
+               }, 0);
+          }
+     }
      async function update() {
           const res = await fetch('https://feedback-api-eight.vercel.app/suggestions', {
                method: "GET",
@@ -83,15 +100,15 @@
           <main class="bg-[#F7F8FE] h-screen">
                <div class="flex items-center text-center font-bold text-13 text-[#394273]">
                     <button on:click={()=>{currentStatus = status = 'Pending'}} type="button" class="{currentStatus === "Pending" ? "opacity-100" : " opacity-40"} block relative flex-1 py-4">
-                         Pending (2)
+                         Pending ({pendingCount})
                          <div class="absolute bottom-0 left-0 right-0 w-full h-1 bg-[#F49F85]"></div>
                     </button>
                     <button on:click={()=>{currentStatus = status = 'In-Progress'}} type="button" class="{currentStatus === "In-Progress" ? "opacity-100" : " opacity-40"} block relative flex-1 py-4">
-                         In-Progress (0)
+                         In-Progress ({inProgressCount})
                          <div class="absolute bottom-0 left-0 right-0 w-full h-1 bg-[#AD1FE9]"></div>
                     </button>
                     <button on:click={()=>{currentStatus = status = 'Live'}} type="button" class="{currentStatus === "Live" ? "opacity-100" : " opacity-40"} block relative flex-1 py-4">
-                         Live (1)
+                         Live ({liveCount})
                          <div class="absolute bottom-0 left-0 right-0 w-full h-1 bg-[#63BCFB]"></div>
                     </button>
                </div>
