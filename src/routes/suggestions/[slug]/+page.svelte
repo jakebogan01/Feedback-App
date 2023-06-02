@@ -157,7 +157,7 @@
                     </div>
                     <div class="flex items-center justify-between mt-4">
                          <div class="text-13 md:text-15 text-[#647196]">
-                              <span>{commentDescriptoin.length} Characters left</span>
+                              <span>{255 - commentDescriptoin.length} Characters left</span>
                          </div>
                          <button type="submit" class="bg-[#AD1FE9] font-bold text-[#F3F4FE] text-13 md:text-sm rounded-[0.625rem] px-4 py-2.5 whitespace-nowrap">Post Comment</button>
                     </div>

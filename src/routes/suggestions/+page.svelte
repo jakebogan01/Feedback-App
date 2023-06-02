@@ -155,7 +155,7 @@
                                              {:else if status === "Live"}
                                                   <div class="w-2 h-2 bg-[#63BCFB] rounded-full mr-3"></div>
                                              {/if}
-                                             <span on:keydown={()=>{}} on:click={()=>{filterByStatus = status}} class="text-base text-[#647196]">{status}</span>
+                                             <span on:keydown={()=>{}} on:click={()=>{filterByStatus = status}} class="text-base text-[#647196] cursor-pointer">{status}</span>
                                         </div>
                                         <span class="font-bold text-base text-[#647196]">{count[i]}</span>
                                    </div>
@@ -224,7 +224,7 @@
                                                        {:else if status === "Live"}
                                                             <div class="w-2 h-2 bg-[#63BCFB] rounded-full mr-3"></div>
                                                        {/if}
-                                                       <span on:keydown={()=>{}} on:click={()=>{filterByStatus = status}} class="text-base text-[#647196]">{status}</span>
+                                                       <span on:keydown={()=>{}} on:click={()=>{filterByStatus = status}} class="text-base text-[#647196] cursor-pointer">{status}</span>
                                                   </div>
                                                   <span class="font-bold text-base text-[#647196]">{count[i]}</span>
                                              </div>

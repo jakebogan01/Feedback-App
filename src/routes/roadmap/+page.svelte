@@ -82,7 +82,7 @@
      }
 </script>
 
-<div class="bg-[#F7F8FE] md:pt-14 md:px-10">
+<div class="bg-[#F7F8FE] md:pt-14 md:px-10 h-full" style="min-height: 100dvh;">
      <section class="relative flex items-center justify-between max-w-[69.375rem] mx-auto md:rounded-[0.625rem] px-6 py-6 md:px-9 md:py-8 bg-[#10263E] z-50">
           <div class="text-13 text-[#F3F4FE]">
                <BackLink link="/" linkStyles="text-white" />
