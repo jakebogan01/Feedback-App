@@ -98,7 +98,7 @@
 {/if}
 
 {#if suggestion}
-     <main class="bg-[#F7F8FE] px-6 pt-8 pb-[4.8125rem] h-full" style="min-height: 100dvh;">
+     <main class="bg-[#F7F8FE] dark:bg-[#0F172A] px-6 pt-8 pb-[4.8125rem] h-full" style="min-height: 100dvh;">
           <div class="flex items-center justify-between max-w-[43.0625rem] mx-auto">
                <div>
                     <BackLink link="/suggestions" />
@@ -114,13 +114,13 @@
                <Suggestion suggestion={suggestion} on:submit={()=>{handleUpdateLikes(suggestion?.likes)}} />
                
                {#if suggestion?.comment.length >= 1}
-                    <div class="bg-white p-6 rounded-[0.625rem] text-13 space-y-12 md:space-y-6">
-                         <h2 class="font-bold text-lg text-[#3A4374] mb-6 md:mb-0">{suggestion?.comment.length} Comments</h2>
+                    <div class="bg-white dark:bg-[#1E293B] p-6 rounded-[0.625rem] text-13 space-y-12 md:space-y-6">
+                         <h2 class="font-bold text-lg text-[#3A4374] dark:text-white mb-6 md:mb-0">{suggestion?.comment.length} Comments</h2>
                          {#each suggestion?.comment as comment}
                               <div>
                                    <div class="flex items-center justify-between mb-4">
                                         <div class="flex items-center md:items-start">
-                                             <div class="flex justify-center items-center bg-[#F2F4FF] text-gray-300 mr-4 rounded-full w-10 h-10 overflow-hidden">
+                                             <div class="flex justify-center items-center bg-[#F2F4FF] dark:bg-[#CDD2EE] text-gray-300 dark:text-gray-600 mr-4 rounded-full w-10 h-10 overflow-hidden">
                                                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>                            
                                              </div>
                                              <div>
@@ -128,13 +128,13 @@
                                                        {#if allUsers}
                                                             {#each allUsers as user}
                                                                  {#if user?._id == comment?.user_id}
-                                                                      <span class="block font-bold text-[#3A4374]">Mr Coach</span>
+                                                                      <span class="block font-bold text-[#3A4374] dark:text-[#4761E6]">Mr Coach</span>
                                                                       <span class="block text-[#647196]">{user?.email}</span>
                                                                  {/if}
                                                             {/each}
                                                        {/if}
                                                   </div>
-                                                  <p class="hidden md:inline-block text-15 mt-4 text-[#647196]">{comment?.comment}</p>
+                                                  <p class="hidden md:inline-block text-15 mt-4 text-[#647196] dark:text-[#D1D7E9]">{comment?.comment}</p>
                                              </div>
                                         </div>
                                         <div>
@@ -147,12 +147,12 @@
                     </div>
                {/if}
 
-               <form on:submit|preventDefault={handleCreateComment} class="bg-white p-6 rounded-[0.625rem] text-13">
-                    <h2 class="font-bold text-lg text-[#3A4374] mb-6">Add Comment</h2>
+               <form on:submit|preventDefault={handleCreateComment} class="bg-white dark:bg-[#1E293B] p-6 rounded-[0.625rem] text-13">
+                    <h2 class="font-bold text-lg text-[#3A4374] dark:text-white mb-6">Add Comment</h2>
                     <div>
                          <label for="description" class="block font-bold text-13 text-[#3A4374] sr-only">Create Comment</label>
                          <div class="mt-3">
-                              <textarea type="text" bind:value={commentDescriptoin} rows="3" cols="50" name="commentDescriptoin" id="commentDescriptoin" class="block w-full bg-[#F7F8FE] text-13 md:text-15 text-[#3A4374] p-3 rounded-[0.3125rem] border-0 ring-1 ring-inset ring-transparent placeholder:text-[#8C92B4] focus:ring-2 focus:ring-inset focus:ring-indigo-600" placeholder="Type your comment here" style="resize: none;" required></textarea>
+                              <textarea type="text" bind:value={commentDescriptoin} rows="3" cols="50" name="commentDescriptoin" id="commentDescriptoin" class="block w-full bg-[#F7F8FE] dark:bg-[#151E2C] text-13 md:text-15 text-[#3A4374] dark:text-[#8C92B4] p-3 rounded-[0.3125rem] border-0 ring-1 ring-inset ring-transparent placeholder:text-[#8C92B4] focus:ring-2 focus:ring-inset focus:ring-indigo-600" placeholder="Type your comment here" style="resize: none;" required></textarea>
                          </div>
                     </div>
                     <div class="flex items-center justify-between mt-4">

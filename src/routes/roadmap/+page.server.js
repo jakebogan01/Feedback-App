@@ -34,7 +34,7 @@ export const actions = {
                          tag: tag,
                          status: "Pending",
                          user_id: "6476c7f84f6963d82b8dd94b",
-                         comment: [{}],
+                         comment: [],
                     }),
                });
                return { success: true };

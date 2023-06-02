@@ -20,6 +20,17 @@
      let showDropList = false
      let filterOptions = ['Most Upvotes', 'Least Upvotes', 'Most Comments', 'Least Comments'];
      let openMenu = false;
+     let darkMode = false;
+
+     const themeSwitch = () => {
+          darkMode = !darkMode;
+
+          preferences.update(currentTheme => {
+               currentTheme[0].theme = darkMode ? "dark" : "";
+
+               return currentTheme;
+          });
+     }
 
      onMount(async () => {
           if (!$preferences[1]) {
@@ -128,7 +139,7 @@
      }
 </script>
 
-<div class="bg-[#F7F8FE] h-full">
+<div class="bg-[#F7F8FE] dark:bg-[#0F172A] h-full">
      <div class="flex flex-col 1440:flex-row max-w-[69.375rem] mx-auto 1440:space-x-[1.875rem] 1440:pt-[5.875rem] md:px-10">
           
           <div class="flex flex-col md:flex-row 1440:flex-col md:items-center md:pt-14 1440:pt-0 md:pb-10 md:space-x-[0.625rem] 1440:space-x-0 1440:space-y-6">
@@ -139,10 +150,10 @@
                </div>
      
                <div class="flex-1 1440:flex-none 1440:max-h-[8.5625rem] 1440:min-w-[15.9375rem] hidden md:block ">
-                    <div class="bg-white p-6 md:h-[11.125rem] rounded-[0.625rem]">
+                    <div class="bg-white dark:bg-[#1E293B] p-6 md:h-[11.125rem] rounded-[0.625rem]">
                          <div class="flex items-center justify-between">
-                              <h4 class="font-bold text-lg text-[#3A4374]">Roadmap</h4>
-                              <a href="/roadmap" class="font-semibold text-13 text-[#4661E6]">View</a>
+                              <h4 class="font-bold text-lg text-[#3A4374] dark:text-white">Roadmap</h4>
+                              <a href="/roadmap" class="font-semibold text-13 text-[#4661E6] dark:text-[#95A1B8] dark:hover:text-[#4661E6]">View</a>
                          </div>
                          <div class="mt-4 1440:mt-6">
                               {#each statuses as status, i}
@@ -155,9 +166,9 @@
                                              {:else if status === "Live"}
                                                   <div class="w-2 h-2 bg-[#63BCFB] rounded-full mr-3"></div>
                                              {/if}
-                                             <span on:keydown={()=>{}} on:click={()=>{filterByStatus = status}} class="text-base text-[#647196] cursor-pointer">{status}</span>
+                                             <span on:keydown={()=>{}} on:click={()=>{filterByStatus = status}} class="text-base text-[#647196] dark:text-[#D1D7E9] dark:hover:text-[#4661E6] cursor-pointer">{status}</span>
                                         </div>
-                                        <span class="font-bold text-base text-[#647196]">{count[i]}</span>
+                                        <span class="font-bold text-base text-[#647196] dark:text-[#D1D7E9]">{count[i]}</span>
                                    </div>
                               {/each}
                          </div>
@@ -205,13 +216,13 @@
                {/if}
           
                <main class="relative py-8 h-screen overflow-hidden">
-                    <div class="md:hidden absolute top-0 bottom-0 min-h-screen bg-[#F7F8FE] overflow-hidden p-6 w-full z-50 duration-300 ease-in-out {openMenu ? "-right-[0%]" : "-right-full"}">
+                    <div class="md:hidden absolute top-0 bottom-0 min-h-screen bg-[#F7F8FE] dark:bg-[#0F172A] overflow-hidden p-6 w-full z-50 duration-300 ease-in-out {openMenu ? "-right-[0%]" : "-right-full"}">
                          <div class="space-y-6 max-w-[20.3125rem] mx-auto">
                               <Tags bind:tagFilter={tagFilter} bind:filterByTag={filterByTag} filterByNumbers={filterByNumbers} tags={removeDuplicates(tags)}/>
-                              <div class="bg-white p-6 md:h-[11.125rem] rounded-[0.625rem]">
+                              <div class="bg-white dark:bg-[#1E283A] p-6 md:h-[11.125rem] rounded-[0.625rem]">
                                    <div class="flex items-center justify-between">
-                                        <h4 class="font-bold text-lg text-[#3A4374]">Roadmap</h4>
-                                        <a href="/roadmap" class="font-semibold text-13 text-[#4661E6]">View</a>
+                                        <h4 class="font-bold text-lg text-[#3A4374] dark:text-white">Roadmap</h4>
+                                        <a href="/roadmap" class="font-semibold text-13 text-[#4661E6] dark:text-[#95A1B8] dark:hover:text-[#4661E6]">View</a>
                                    </div>
                                    <div class="mt-4">
                                         {#each statuses as status, i}
@@ -224,12 +235,25 @@
                                                        {:else if status === "Live"}
                                                             <div class="w-2 h-2 bg-[#63BCFB] rounded-full mr-3"></div>
                                                        {/if}
-                                                       <span on:keydown={()=>{}} on:click={()=>{filterByStatus = status}} class="text-base text-[#647196] cursor-pointer">{status}</span>
+                                                       <span on:keydown={()=>{}} on:click={()=>{filterByStatus = status}} class="text-base text-[#647196] dark:text-[#D1D7E9] cursor-pointer">{status}</span>
                                                   </div>
-                                                  <span class="font-bold text-base text-[#647196]">{count[i]}</span>
+                                                  <span class="font-bold text-base text-[#647196] dark:text-[#D1D7E9]">{count[i]}</span>
                                              </div>
                                         {/each}
                                    </div>
+                              </div>
+                              <div class="flex items-center space-x-4">
+                                   <button type="button" class="bg-white dark:bg-[#1E283A] dark:text-white p-6 md:h-[11.125rem] rounded-[0.625rem] cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z" clip-rule="evenodd" /></svg>
+                                   </button>
+
+                                   <button on:click={themeSwitch} type="button" class="bg-white dark:bg-[#1E283A] dark:text-white p-6 md:h-[11.125rem] rounded-[0.625rem] cursor-pointer">
+                                        {#if darkMode}
+                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" /></svg>
+                                        {:else}
+                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clip-rule="evenodd" /></svg>
+                                        {/if}
+                                   </button>
                               </div>
                          </div>
                     </div>
@@ -246,11 +270,15 @@
                                    {/if}
                               {/each}
                          {:else}
-                              <div class="flex flex-col items-center justify-center bg-white py-[4.75rem] md:py-[6.9375rem] px-[1.625rem] text-center rounded-[0.625rem]">
-                                   <img src="/suggestions/illustration-empty.svg" alt="" role="presentation" class="1440:h-[136px]">
+                              <div class="flex flex-col items-center justify-center bg-white dark:bg-[#1E293B] py-[4.75rem] md:py-[6.9375rem] px-[1.625rem] text-center rounded-[0.625rem]">
+                                   {#if darkMode}
+                                        <img src="/suggestions/illustration-empty.svg" alt="" role="presentation" class="1440:h-[136px]">
+                                   {:else}
+                                        <img src="/suggestions/illustration-dark-empty.svg" alt="" role="presentation" class="1440:h-[136px]">
+                                   {/if}
                                    <div class="md:max-w-[25.625rem]">
-                                        <h2 class="font-bold text-lg md:text-2xl text-[#3A4374] leading-none mt-10">There is no feedback yet.</h2>
-                                        <p class="text-13 md:text-base text-[#647196] my-6 md:mt-4 md:mb-10">Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to improve our app.</p>
+                                        <h2 class="font-bold text-lg md:text-2xl text-[#3A4374] dark:text-[#4761E6] leading-none mt-10">There is no feedback yet.</h2>
+                                        <p class="text-13 md:text-base text-[#647196] dark:text-[#D1D7E9] my-6 md:mt-4 md:mb-10">Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to improve our app.</p>
                                    </div>
                                    <div>
                                         <Button bind:showForm={showCreateForm} buttonStyles="bg-[#AD1FE9]" buttonText="&#43; Add Feedback" />

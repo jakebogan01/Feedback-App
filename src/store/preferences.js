@@ -2,8 +2,7 @@ import { persisted } from "svelte-local-storage-store";
 
 export const preferences = persisted("preferences", [
      {
-          // email: "test@gmail.com",
-          theme: "light",
+          theme: "",
      },
      // {
      //      createdAt: "2023-05-29T16:57:48.455Z",
