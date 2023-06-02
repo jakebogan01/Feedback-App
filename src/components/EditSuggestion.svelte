@@ -111,13 +111,15 @@
                          </div>
                     </div>
                     <div class="flex flex-col md:flex-row md:justify-between space-y-4 md:space-y-0 mt-8">
-                         <button type="button" class="mt-3 inline-flex w-full justify-center items-center rounded-[0.625rem] bg-[#D73737] px-3 h-10 md:w-[5.8125rem] text-[#F2F4FE] ring-1 ring-inset ring-gray-300 dark:ring-[#D73737] sm:mt-0">Delete</button>
+                         <button type="button" class="mt-3 inline-flex w-full justify-center items-center rounded-[0.625rem] bg-[#D73737] hover:bg-[#DB8285] px-3 h-10 md:w-[5.8125rem] text-[#F2F4FE] ring-1 ring-inset ring-gray-300 dark:ring-[#D73737] sm:mt-0">Delete</button>
                          <div class="flex flex-col md:flex-row items-center md:space-x-4 space-y-4 md:space-y-0">
-                              <button on:click={()=>{showEditForm = false}} type="button" class="inline-flex w-full justify-center items-center rounded-[0.625rem] bg-[#10263E] dark:bg-black px-3 h-10 md:w-[5.8125rem] text-[#F2F4FE] ring-1 ring-inset ring-gray-300 dark:ring-black hover:bg-[#FF9898] sm:mt-0">Cancel</button>
-                              <button type="submit" class="inline-flex w-full justify-center items-center rounded-[0.625rem] bg-[#AD1FE9] px-3 h-10 md:w-[9rem] text-[#F2F4FE] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save Changes</button>
+                              <button on:click={()=>{showEditForm = false}} type="button" class="inline-flex w-full justify-center items-center rounded-[0.625rem] bg-[#10263E] dark:bg-black px-3 h-10 md:w-[5.8125rem] text-[#F2F4FE] ring-1 ring-inset ring-gray-300 dark:ring-black hover:bg-[#656EA3] sm:mt-0">Cancel</button>
+                              <button type="submit" class="inline-flex w-full justify-center items-center rounded-[0.625rem] bg-[#AD1FE9] hover:bg-[#C75AF6] px-3 h-10 md:w-[9rem] text-[#F2F4FE] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save Changes</button>
                          </div>
                     </div>
                </form>
           </div>
      </div>
+{:else}
+     <div class="bg-white dark:bg-[#0F172A] h-full" style="min-height: 100dvh;"></div>
 {/if}

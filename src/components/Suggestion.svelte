@@ -18,10 +18,10 @@
      }
 </script>
 
-<div class="flex flex-col md:flex-row bg-white dark:bg-[#1E283A] p-6 md:py-7 md:px-8 rounded-[0.625rem] text-13 {currentStatus !== "" ? borderStyles : ""}" data-sveltekit-preload-data="hover">
+<div class="flex flex-col md:flex-row bg-white dark:bg-[#1E283A] p-6 md:py-7 md:px-8 rounded-[0.625rem] text-13 group {currentStatus !== "" ? borderStyles : ""}" data-sveltekit-preload-data="hover">
      <div class="hidden md:block pr-10">
           <form on:submit|preventDefault|once>
-               <button type="submit" class="flex flex-row md:flex-col items-center md:justify-center space-x-2 md:space-x-0 bg-[#F2F4FF] dark:bg-[#17202F] dark:hover:bg-[#3A4374] dark:hover:text-white rounded-[0.625rem] px-4 py-1 md:p-0 md:w-10 md:h-[3.3125rem] font-bold text-[#3A4374] dark:text-white">
+               <button type="submit" class="flex flex-row md:flex-col items-center md:justify-center space-x-2 md:space-x-0 bg-[#F2F4FF] hover:bg-[#CED7FF] dark:bg-[#17202F] dark:hover:bg-[#3A4374] dark:hover:text-white rounded-[0.625rem] px-4 py-1 md:p-0 md:w-10 md:h-[3.3125rem] font-bold text-[#3A4374] dark:text-white">
                     <img src="/shared/icon-arrow-up.svg" alt="" role="presentation">
                     <span class="mt-1">{suggestion?.likes}</span>
                </button>
@@ -34,7 +34,7 @@
                {/if}
                <span class="text-[#647196]">{currentStatus}</span>
           </div>
-          <h2 class="font-bold text-[#3A4374] dark:text-white md:text-lg leading-3">{suggestion?.title}</h2>
+          <h2 class="font-bold text-[#3A4374] group-hover:text-[#4761E6] dark:text-white md:text-lg leading-3">{suggestion?.title}</h2>
           <p class="text-[#647196] dark:text-[#D1D7E9] md:text-base my-2 md:mb-4">{suggestion?.description}</p>
           <span class="hidden md:inline-block bg-[#F2F4FF] dark:bg-[#17202F] rounded-[0.625rem] px-4 py-1 font-semibold text-[#4661E6]">{suggestion?.tag}</span>
      </a>
@@ -42,7 +42,7 @@
           <div class="md:hidden space-y-4">
                <span class="block bg-[#F2F4FF] dark:bg-[#17202F] rounded-[0.625rem] px-4 py-1 font-semibold text-[#4661E6]">{suggestion?.tag}</span>
                <form on:submit|preventDefault|once>
-                    <button type="submit" class="flex items-center space-x-2 bg-[#F2F4FF] dark:bg-[#17202F] dark:hover:bg-[#3A4374] dark:hover:text-white rounded-[0.625rem] px-4 py-1 font-bold text-[#3A4374] dark:text-white">
+                    <button type="submit" class="flex items-center space-x-2 bg-[#F2F4FF] hover:bg-[#CED7FF] dark:bg-[#17202F] dark:hover:bg-[#3A4374] dark:hover:text-white rounded-[0.625rem] px-4 py-1 font-bold text-[#3A4374] dark:text-white">
                          <img src="/shared/icon-arrow-up.svg" alt="" role="presentation">
                          <span>{suggestion?.likes}</span>
                     </button>

@@ -89,7 +89,7 @@
                <h1 class="font-bold text-lg md:text-2xl md:mt-2">Roadmap</h1>
           </div>
           <div>
-               <Button bind:showForm={showCreateForm} buttonStyles="bg-[#AD1FE9]" buttonText="&#43; Add Feedback" />
+               <Button bind:showForm={showCreateForm} buttonStyles="bg-[#AD1FE9] hover:bg-[#C75AF6]" buttonText="&#43; Add Feedback" />
           </div>
      </section>
 
@@ -137,13 +137,13 @@
                          <div>
                               <div class="font-bold text-sm 1440:text-lg text-[#3A4374] mb-6 1440:mb-8 text-center">
                                    {#if status === "Pending"}
-                                        <span class="block dark:text-[#F49F85]">{status} ({pendingCount})</span>
+                                        <span class="block text-[#F49F85]">{status} ({pendingCount})</span>
                                         <span class="font-normal text-sm 1440:text-base text-[#647196] dark:text-[#D1D7E9]">Ideas prioritized for research</span>
                                    {:else if status === "In-Progress"}
-                                        <span class="block dark:text-[#AD1FE9]">{status} ({inProgressCount})</span>
+                                        <span class="block text-[#AD1FE9]">{status} ({inProgressCount})</span>
                                         <span class="font-normal text-sm 1440:text-base text-[#647196] dark:text-[#D1D7E9]">Currently being developed</span>
                                    {:else if status === "Live"}
-                                        <span class="block dark:text-[#63BCFB]">{status} ({liveCount})</span>
+                                        <span class="block text-[#63BCFB]">{status} ({liveCount})</span>
                                         <span class="font-normal text-sm 1440:text-base text-[#647196] dark:text-[#D1D7E9]">Released features</span>
                                    {/if}
                               </div>

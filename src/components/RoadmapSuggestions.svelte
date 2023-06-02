@@ -18,7 +18,7 @@
      }
 </script>
 
-<div class="flex flex-col justify-between bg-white dark:bg-[#1E293B] py-6 px-5 h-[15.6875rem] rounded-[0.625rem] text-13 {currentStatus !== "" ? borderStyles : ""}" data-sveltekit-preload-data="hover">
+<div class="flex flex-col justify-between bg-white dark:bg-[#1E293B] py-6 px-5 h-[15.6875rem] rounded-[0.625rem] text-13 group {currentStatus !== "" ? borderStyles : ""}" data-sveltekit-preload-data="hover">
      <a href="/suggestions/{suggestion?._id}" class="block flex-1">
           <div class="flex items-center {currentStatus !== "" ? "mb-4" : ""}">
                {#if currentStatus !== ""}
@@ -26,14 +26,14 @@
                {/if}
                <span class="text-[#647196] dark:text-[#D1D7E9] 1440:text-base">{currentStatus}</span>
           </div>
-          <h2 class="font-bold text-[#3A4374] dark:text-white text-13 1440:text-lg leading-3">{suggestion?.title}</h2>
+          <h2 class="font-bold text-[#3A4374] group-hover:text-[#4761E6] dark:text-white text-13 1440:text-lg leading-3">{suggestion?.title}</h2>
           <p class="text-[#647196] dark:text-[#D1D7E9] text-13 1440:text-base my-2 truncate">{suggestion?.description}</p>
      </a>
      <div class="flex items-end justify-between">
           <div class="space-y-4">
                <span class="flex items-center justify-center bg-[#F2F4FF] dark:bg-[#17202F] rounded-[0.625rem] px-4 py-1 font-semibold text-[#4661E6]">{suggestion?.tag}</span>
                <form on:submit|preventDefault|once>
-                    <button type="submit" class="flex items-center space-x-2 bg-[#F2F4FF] dark:bg-[#17202F] dark:hover:bg-[#3A4374] rounded-[0.625rem] px-4 py-1 font-bold text-[#3A4374]">
+                    <button type="submit" class="flex items-center space-x-2 bg-[#F2F4FF] hover:bg-[#CED7FF] dark:bg-[#17202F] dark:hover:bg-[#3A4374] rounded-[0.625rem] px-4 py-1 font-bold text-[#3A4374]">
                          <img src="/shared/icon-arrow-up.svg" alt="" role="presentation">
                          <span class="1440:text-base dark:text-white">{suggestion?.likes}</span>
                     </button>

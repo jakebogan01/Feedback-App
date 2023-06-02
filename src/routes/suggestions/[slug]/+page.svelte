@@ -105,7 +105,7 @@
                </div>
                <div>
                     {#if suggestion?.user_id == $preferences?.[1]._id}
-                         <Button bind:showForm={showEditForm} buttonStyles="bg-[#4761E6]" buttonText="Edit Feedback" />
+                         <Button bind:showForm={showEditForm} buttonStyles="bg-[#4761E6] hover:bg-[#7C91F9]" buttonText="Edit Feedback" />
                     {/if}
                </div>
           </div>
@@ -159,9 +159,11 @@
                          <div class="text-13 md:text-15 text-[#647196]">
                               <span>{255 - commentDescriptoin.length} Characters left</span>
                          </div>
-                         <button type="submit" class="bg-[#AD1FE9] font-bold text-[#F3F4FE] text-13 md:text-sm rounded-[0.625rem] px-4 py-2.5 whitespace-nowrap">Post Comment</button>
+                         <button type="submit" class="bg-[#AD1FE9] hover:bg-[#C75AF6] font-bold text-[#F3F4FE] text-13 md:text-sm rounded-[0.625rem] px-4 py-2.5 whitespace-nowrap">Post Comment</button>
                     </div>
                </form>
           </section>
      </main>
+{:else}
+     <div class="bg-white dark:bg-[#0F172A] h-full" style="min-height: 100dvh;"></div>
 {/if}

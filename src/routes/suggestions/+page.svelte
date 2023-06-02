@@ -153,7 +153,7 @@
                     <div class="bg-white dark:bg-[#1E293B] p-6 md:h-[11.125rem] rounded-[0.625rem]">
                          <div class="flex items-center justify-between">
                               <h4 class="font-bold text-lg text-[#3A4374] dark:text-white">Roadmap</h4>
-                              <a href="/roadmap" class="font-semibold text-13 text-[#4661E6] dark:text-[#95A1B8] dark:hover:text-[#4661E6]">View</a>
+                              <a href="/roadmap" class="font-semibold text-13 text-[#4661E6] hover:text-[#CED7FF] dark:text-[#95A1B8] dark:hover:text-[#4661E6]">View</a>
                          </div>
                          <div class="mt-4 1440:mt-6">
                               {#each statuses as status, i}
@@ -175,12 +175,12 @@
                     </div>
                </div>
 
-               <div class="flex flex-row md:flex-col 1440:flex-row items-center space-x-4 md:space-x-0 1440:space-x-4 md:space-y-4 1440:space-y-0 1440:pt-10">
-                    <button type="button" class="bg-white dark:bg-[#1E283A] dark:text-white p-6 h-[4.5rem] w-[4.5rem] rounded-[0.625rem] cursor-pointer">
+               <div class="1440:w-full hidden md:flex flex-row md:flex-col 1440:flex-row items-center space-x-4 md:space-x-0 1440:space-x-4 md:space-y-4 1440:space-y-0 1440:pt-10">
+                    <button type="button" class="flex justify-center items-center bg-white hover:bg-gray-200 dark:bg-[#1E283A] dark:text-white p-6 h-[4.5rem] w-[4.5rem] 1440:w-full rounded-[0.625rem] cursor-pointer">
                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z" clip-rule="evenodd" /></svg>
                     </button>
 
-                    <button on:click={themeSwitch} type="button" class="bg-white dark:bg-[#1E283A] dark:text-white p-6 w-[4.5rem] rounded-[0.625rem] rounded-[0.625rem] cursor-pointer">
+                    <button on:click={themeSwitch} type="button" class="flex justify-center items-center bg-white hover:bg-gray-200 dark:bg-[#1E283A] dark:text-white p-6 h-[4.5rem] w-[4.5rem] 1440:w-full rounded-[0.625rem] cursor-pointer">
                          {#if darkMode}
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" /></svg>
                          {:else}
@@ -199,21 +199,22 @@
                                    <span class="font-bold text-white text-lg">{suggestions.length} Suggestions</span>
                               {/if}
                          </div>
-                         <div class="flex items-center md:mt-0.5">
-                              <label for="filter" class="whitespace-nowrap md:text-sm">Sort by :</label>
+                         <div class="flex items-center md:mt-0.5 group">
+                              <label for="filter" class="whitespace-nowrap md:text-sm group-hover:text-[#B9C0CE]">Sort by :</label>
                               <div class="relative">
                                    <button  type="button" class="relative cursor-pointer bg-transparent text-left ring-0 ring-inset ring-transparent focus:outline-none focus:ring-0 focus:ring-transparent" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
-                                        <span class="block truncate font-bold text-13 md:text-sm text-[#F3F4FE] pl-1">{filterByNumbers}</span>
+                                        <span class="block truncate font-bold text-13 md:text-sm text-[#F3F4FE] group-hover:text-[#B9C0CE] pl-1">{filterByNumbers}</span>
                                         <span class="pointer-events-none absolute inset-y-0 -right-4 flex items-center">
                                              <svg width="9" height="7" class="w-full" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Path 2" d="M1 1L5 5L9 1" stroke="white" stroke-width="2"/></svg>
                                         </span>
                                    </button>
                                    {#if showDropList}
-                                        <ul class="absolute mt-1 overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50" tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
+                                        <ul class="absolute mt-1 overflow-auto rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50" tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
                                              {#each filterOptions as option}
-                                                  <li on:keydown={()=>{}} on:click={()=>{showDropList = false; filterByNumbers = option}} class="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover:text-gray-400" id="listbox-option-0" role="option" aria-selected>
+                                                  <li on:keydown={()=>{}} on:click={()=>{showDropList = false; filterByNumbers = option}} class="text-gray-900 relative select-none py-2 pl-3 pr-9 hover:text-[#AD1FE9] cursor-pointer" id="listbox-option-0" role="option" aria-selected>
                                                        <span class="text-13 block truncate">{option}</span>
                                                   </li>
+                                                  <hr>
                                              {/each}
                                         </ul>
                                    {/if}
@@ -221,7 +222,7 @@
                          </div>
                     </div>
                     <div>
-                         <Button bind:showForm={showCreateForm} buttonStyles="bg-[#AD1FE9]" buttonText="&#43; Add Feedback" />
+                         <Button bind:showForm={showCreateForm} buttonStyles="bg-[#AD1FE9] hover:bg-[#C75AF6]" buttonText="&#43; Add Feedback" />
                     </div>
                </div>
           
@@ -236,7 +237,7 @@
                               <div class="bg-white dark:bg-[#1E283A] p-6 md:h-[11.125rem] rounded-[0.625rem]">
                                    <div class="flex items-center justify-between">
                                         <h4 class="font-bold text-lg text-[#3A4374] dark:text-white">Roadmap</h4>
-                                        <a href="/roadmap" class="font-semibold text-13 text-[#4661E6] dark:text-[#95A1B8] dark:hover:text-[#4661E6]">View</a>
+                                        <a href="/roadmap" class="font-semibold text-13 text-[#4661E6] dark:text-[#95A1B8] hover:text-[#CED7FF] dark:hover:text-[#4661E6]">View</a>
                                    </div>
                                    <div class="mt-4">
                                         {#each statuses as status, i}
@@ -257,11 +258,11 @@
                                    </div>
                               </div>
                               <div class="flex items-center space-x-4">
-                                   <button type="button" class="bg-white dark:bg-[#1E283A] dark:text-white p-6 md:h-[11.125rem] rounded-[0.625rem] cursor-pointer">
+                                   <button type="button" class="bg-white hover:bg-gray-200 dark:bg-[#1E283A] dark:text-white p-6 md:h-[11.125rem] rounded-[0.625rem] cursor-pointer">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z" clip-rule="evenodd" /></svg>
                                    </button>
 
-                                   <button on:click={themeSwitch} type="button" class="bg-white dark:bg-[#1E283A] dark:text-white p-6 md:h-[11.125rem] rounded-[0.625rem] cursor-pointer">
+                                   <button on:click={themeSwitch} type="button" class="bg-white hover:bg-gray-200 dark:bg-[#1E283A] dark:text-white p-6 md:h-[11.125rem] rounded-[0.625rem] cursor-pointer">
                                         {#if darkMode}
                                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" /></svg>
                                         {:else}
@@ -295,7 +296,7 @@
                                         <p class="text-13 md:text-base text-[#647196] dark:text-[#D1D7E9] my-6 md:mt-4 md:mb-10">Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to improve our app.</p>
                                    </div>
                                    <div>
-                                        <Button bind:showForm={showCreateForm} buttonStyles="bg-[#AD1FE9]" buttonText="&#43; Add Feedback" />
+                                        <Button bind:showForm={showCreateForm} buttonStyles="bg-[#AD1FE9] hover:bg-[#C75AF6]" buttonText="&#43; Add Feedback" />
                                    </div>
                               </div>
                          {/if}
