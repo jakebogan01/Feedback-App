@@ -6,6 +6,7 @@ export const actions = {
           const values = await request.formData();
 
           try {
+               const username = values.get("username");
                const email = values.get("email");
                const password = values.get("password");
 
@@ -17,6 +18,7 @@ export const actions = {
                     },
                     body: JSON.stringify({
                          email: email,
+                         username: username,
                          password: password,
                     }),
                });

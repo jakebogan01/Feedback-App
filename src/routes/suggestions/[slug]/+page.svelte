@@ -129,7 +129,7 @@
                                                             {#if allUsers}
                                                                  {#each allUsers as user}
                                                                       {#if user?._id == comment?.user_id}
-                                                                           <span class="block font-bold text-[#3A4374] dark:text-[#4761E6]">Mr Coach</span>
+                                                                           <span class="block font-bold text-[#3A4374] dark:text-[#4761E6]">{user?.username}</span>
                                                                            <span class="block text-[#647196]">{user?.email}</span>
                                                                       {/if}
                                                                  {/each}
