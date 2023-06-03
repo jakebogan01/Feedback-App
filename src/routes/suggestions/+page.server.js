@@ -1,4 +1,5 @@
 import { fail } from "@sveltejs/kit";
+import { preferences } from "../../store/preferences";
 /** @type {import('./$types').Actions} */
 
 export const actions = {
@@ -18,6 +19,7 @@ export const actions = {
                const updatedTitle = stringToSlug(title);
                const tag = values.get("tag");
                const description = values.get("description");
+               const id = values.get("id");
 
                const response = await fetch("https://feedback-api-eight.vercel.app/suggestions", {
                     method: "POST",
@@ -33,7 +35,7 @@ export const actions = {
                          users_liked: [],
                          tag: tag,
                          status: "Pending",
-                         user_id: "6476c7f84f6963d82b8dd94b",
+                         user_id: id,
                          comment: [],
                     }),
                });

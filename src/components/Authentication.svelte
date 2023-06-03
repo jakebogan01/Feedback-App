@@ -26,7 +26,7 @@
         if (fields.email == "") {
             valid = false;
         } else {
-            if (reg.test(fields.email.trim().toLowerCase()) == false && !fields.email.includes('leadmarvels.com')) {
+            if (!res) {
                 valid = false;
                 errors.email = "Must have a Leadmarvels email";
             } else {
@@ -92,8 +92,6 @@
                 }
             });
 
-            console.log(currentUser)
-
             let filterArray = [...currentPreferences, currentUser[0]];
             let unique = [...new Set(filterArray)];
             const removeNull = unique.filter(element => element !== null)
@@ -101,7 +99,7 @@
         });
 
         if (valid) {
-            goto('/suggestions');
+            window.location.replace("/suggestions");
         }
     }
 
@@ -121,10 +119,6 @@
                 errors.noMatch = 'Credentials does not match our records';
             }
         }
-    }
-
-	function isDirty(item) {
-        return item === false;
     }
 </script>
 
@@ -193,7 +187,7 @@
                     required />
                 <p class="text-red-500 text-[0.9rem] text-center">{errors.password}</p>
             </label>
-            <button disabled='{isDirty(valid)}' on:click={handleUserCredentials} type="submit" class="grid place-items-center bg-[#2CC320] hover:bg-[#33db25] text-white border-none py-3.5 px-0 rounded-md cursor-pointer text-base">
+            <button on:click={handleUserCredentials} type="submit" class="grid place-items-center bg-[#2CC320] hover:bg-[#33db25] text-white border-none py-3.5 px-0 rounded-md cursor-pointer text-base">
                 Submit
             </button>
         </form>
@@ -246,7 +240,7 @@
                     required />
                 <p class="text-red-500 text-[0.9rem] text-center">{errors.password}</p>
             </label>
-            <button disabled='{isDirty(valid)}' on:click={handleUserCredentials} type="submit" class="grid place-items-center bg-[#2CC320] hover:bg-[#33db25] text-white border-none py-3.5 px-0 rounded-md cursor-pointer text-base">
+            <button on:click={handleUserCredentials} type="submit" class="grid place-items-center bg-[#2CC320] hover:bg-[#33db25] text-white border-none py-3.5 px-0 rounded-md cursor-pointer text-base">
                 Submit
             </button>
         </form>

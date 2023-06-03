@@ -1,6 +1,7 @@
 <script>
      import { onMount } from 'svelte';
      import BackLink from './BackLink.svelte';
+     import { preferences } from '../store/preferences';
      export let showCreateForm;
 
      let suggestions;
@@ -28,6 +29,7 @@
                     <div class="mt-6 md:mt-8">
                          <h3 class="font-bold text-lg md:text-2xl text-[#3A4374] dark:text-[#4761E6]" id="modal-title">Create New Feedback</h3>
                          <div class="mt-6 md:mt-16 space-y-6">
+                              <input class="sr-only hidden" type="text" name="id" value={$preferences[1]._id}>
                               <div>
                                    <label for="title" class="block font-bold text-13 md:text-sm text-[#3A4374] dark:text-white">Feedback Title</label>
                                    <span class="text-13 md:text-sm text-[#647196] dark:text-[#D1D7E9]">Add a short, descriptive headline</span>

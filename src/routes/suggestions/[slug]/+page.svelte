@@ -168,10 +168,9 @@
                     <form on:submit|preventDefault={handleCreateComment} class="bg-white dark:bg-[#1E293B] p-6 rounded-[0.625rem] text-13">
                          <h2 class="font-bold text-lg text-[#3A4374] dark:text-white mb-6">Add Comment</h2>
                          <div>
-                              <label for="description" class="block font-bold text-13 text-[#3A4374] sr-only">Create Comment</label>
+                              <label for="commentDescriptoin" class="block font-bold text-13 text-[#3A4374] sr-only">Create Comment</label>
                               <div class="mt-3">
                                    <textarea type="text" on:blur={()=>{
-                                        console.log('sdf')
                                         if (commentDescriptoin == "") {
                                              valid = false;
                                              commentErrors = "";
