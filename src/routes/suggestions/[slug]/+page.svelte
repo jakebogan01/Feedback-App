@@ -12,6 +12,8 @@
      let allUsers;
      let showEditForm = false;
      let commentDescriptoin = '';
+     let commentErrors = '';
+     let valid = false;
      
      onMount(async () => {
           if (!$preferences[1]) {
@@ -91,6 +93,21 @@
                console.error(error.message);
           }
      }
+
+     const handleValidation = () => {
+          valid = true;
+
+          if (commentDescriptoin.trim().length >= 50) {
+               commentErrors = "";
+          } else {
+               valid = false;
+               commentErrors = "Must be more than 50 characters";
+          }
+     }
+
+     function isDirty(item) {
+        return item === false;
+    }
 </script>
 
 {#if showEditForm && suggestion}
@@ -153,14 +170,21 @@
                          <div>
                               <label for="description" class="block font-bold text-13 text-[#3A4374] sr-only">Create Comment</label>
                               <div class="mt-3">
-                                   <textarea type="text" bind:value={commentDescriptoin} rows="3" cols="50" name="commentDescriptoin" id="commentDescriptoin" class="block w-full bg-[#F7F8FE] dark:bg-[#151E2C] text-13 md:text-15 text-[#3A4374] dark:text-[#8C92B4] p-3 rounded-[0.3125rem] border-0 ring-1 ring-inset ring-transparent placeholder:text-[#8C92B4] focus:ring-2 focus:ring-inset focus:ring-indigo-600" placeholder="Type your comment here" style="resize: none;" required></textarea>
+                                   <textarea type="text" on:blur={()=>{
+                                        console.log('sdf')
+                                        if (commentDescriptoin == "") {
+                                             valid = false;
+                                             commentErrors = "";
+                                        }
+                                   }} on:keyup={handleValidation} bind:value={commentDescriptoin} maxlength="255" rows="3" cols="50" name="commentDescriptoin" id="commentDescriptoin" class="block w-full bg-[#F7F8FE] dark:bg-[#151E2C] text-13 md:text-15 text-[#3A4374] dark:text-[#8C92B4] p-3 rounded-[0.3125rem] border-0 ring-1 ring-inset ring-transparent placeholder:text-[#8C92B4] focus:ring-2 focus:ring-inset focus:ring-indigo-600" placeholder="Type your comment here" style="resize: none;" required></textarea>
                               </div>
                          </div>
                          <div class="flex items-center justify-between mt-4">
                               <div class="text-13 md:text-15 text-[#647196]">
+                                   <span class="text-red-500">{commentErrors}</span><br>
                                    <span>{255 - commentDescriptoin.length} Characters left</span>
                               </div>
-                              <button type="submit" class="bg-[#AD1FE9] hover:bg-[#C75AF6] font-bold text-[#F3F4FE] text-13 md:text-sm rounded-[0.625rem] px-4 py-2.5 whitespace-nowrap">Post Comment</button>
+                              <button disabled='{isDirty(valid)}' type="submit" class="bg-[#AD1FE9] hover:bg-[#C75AF6] font-bold text-[#F3F4FE] text-13 md:text-sm rounded-[0.625rem] px-4 py-2.5 whitespace-nowrap">Post Comment</button>
                          </div>
                     </form>
                </section>

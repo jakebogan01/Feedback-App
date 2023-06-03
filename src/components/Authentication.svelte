@@ -128,7 +128,7 @@
 
 <div class="relative flex flex-col items-center justify-center flex-1 p-6 text-white min-h-screen bg-[#011446]">
     {#if title === "register"}
-        <form method="POST" action="?/register" enctype="multipart/form-data" use:enhance class="flex flex-col gap-5 w-[25rem] max-w-full mx-auto">
+        <form method="POST" action="?/register" enctype="multipart/form-data" use:enhance class="flex flex-col gap-5 w-[25rem] max-w-full mx-auto" autocomplete="on">
             <h1 class="text-center text-5xl mb-4 capitalize">{title}</h1>
             <label class="relative border border-black rounded-md">
                 <p class={fields.username ? " above" : " center"}>Username</p>
@@ -196,7 +196,7 @@
             </button>
         </form>
     {:else}
-        <form on:submit|preventDefault={handleUserCredentials} class="flex flex-col gap-5 w-[25rem] max-w-full mx-auto">
+        <form on:submit|preventDefault={handleUserCredentials} class="flex flex-col gap-5 w-[25rem] max-w-full mx-auto" autocomplete="on">
             <h1 class="text-center text-5xl mb-4 capitalize">{title}</h1>
             <label class="relative border border-black rounded-md">
                 <p class={fields.email ? " above" : " center"}>Email</p>
