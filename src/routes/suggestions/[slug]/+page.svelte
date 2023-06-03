@@ -104,10 +104,6 @@
                commentErrors = "Must be more than 50 characters";
           }
      }
-
-     function isDirty(item) {
-        return item === false;
-    }
 </script>
 
 {#if showEditForm && suggestion}
@@ -183,7 +179,7 @@
                                    <span class="text-red-500">{commentErrors}</span><br>
                                    <span>{255 - commentDescriptoin.length} Characters left</span>
                               </div>
-                              <button disabled='{isDirty(valid)}' type="submit" class="bg-[#AD1FE9] hover:bg-[#C75AF6] font-bold text-[#F3F4FE] text-13 md:text-sm rounded-[0.625rem] px-4 py-2.5 whitespace-nowrap">Post Comment</button>
+                              <button disabled={!valid} type="submit" class="bg-[#AD1FE9] hover:bg-[#C75AF6] font-bold text-[#F3F4FE] text-13 md:text-sm rounded-[0.625rem] px-4 py-2.5 whitespace-nowrap">Post Comment</button>
                          </div>
                     </form>
                </section>
