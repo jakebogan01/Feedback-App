@@ -26,7 +26,7 @@
         if (fields.email == "") {
             valid = false;
         } else {
-            if (!res) {
+            if (reg.test(fields.email.trim().toLowerCase()) == false && !fields.email.includes('leadmarvels.com')) {
                 valid = false;
                 errors.email = "Must have a Leadmarvels email";
             } else {
@@ -92,10 +92,12 @@
                 }
             });
 
+            console.log(currentUser)
+
             let filterArray = [...currentPreferences, currentUser[0]];
             let unique = [...new Set(filterArray)];
-            
-            return [...unique];
+            const removeNull = unique.filter(element => element !== null)
+            return [...removeNull];
         });
 
         if (valid) {
@@ -105,12 +107,12 @@
 
     const handleUserCredentials = () => {
         if (title === 'register') {
-            updateLocalStorageWithUserCredentials();
+            setTimeout(updateLocalStorageWithUserCredentials, 1500)
         } else {
             if (allUsers.length !== 0) {
                 allUsers.forEach(item => {
                     if ((item.email === fields.email) && (item.password === fields.password)) {
-                        updateLocalStorageWithUserCredentials();
+                        setTimeout(updateLocalStorageWithUserCredentials, 1500)
                     } else {
                         errors.noMatch = 'Credentials does not match our records';
                     }

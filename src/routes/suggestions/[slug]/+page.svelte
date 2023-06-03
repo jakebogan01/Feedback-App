@@ -17,7 +17,7 @@
      
      onMount(async () => {
           if (!$preferences[1]) {
-               goto('/');
+               window.location.replace("/");
           }
 
           const res = await fetch(`https://feedback-api-eight.vercel.app/suggestions/${data?.slug}`, {

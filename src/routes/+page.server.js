@@ -6,8 +6,8 @@ export const actions = {
           const values = await request.formData();
 
           try {
-               const username = values.get("username");
-               const email = values.get("email");
+               const username = values.get("username").trim();
+               const email = values.get("email").trim().toLowerCase();
                const password = values.get("password");
 
                const response = await fetch("https://feedback-api-eight.vercel.app/users", {
