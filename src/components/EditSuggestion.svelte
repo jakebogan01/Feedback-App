@@ -37,7 +37,7 @@
           }
      }
 
-     const handleUpdateLikes = async () => {
+     const handleUpdateSuggestion = async () => {
           try {
                const response = await fetch(`https://feedback-api-eight.vercel.app/suggestions/${post._id}`, {
                     method: "PUT",
@@ -61,13 +61,32 @@
           }
           return;
      }
+
+     const handleDeleteSuggestion = async () => {
+          try {
+               const response = await fetch(`https://feedback-api-eight.vercel.app/suggestions/${post._id}`, {
+                    method: "DELETE",
+                    headers: {
+                         Accept: "application.json",
+                         "Content-Type": "application/json",
+                    },
+               }).then((response) => {
+                    if (response.ok) { 
+                         window.location.href = '/suggestions';
+                    }
+               });
+          } catch (error) {
+               console.error(error.message);
+          }
+          return;
+     }
 </script>
 
 {#if suggestions}
      <div class="fixed inset-0 bg-[#F7F8FE] dark:bg-[#0F172A] w-full px-6 pt-8 md:pt-14 pb-[4.8125rem] z-50 overflow-y-auto min-h-screen" style="z-index: 100;" aria-labelledby="modal-title" role="dialog" aria-modal="true">
           <div class="max-w-[33.75rem] mx-auto">
                <BackLink bind:showCreateForm={showEditForm} />
-               <form on:submit|preventDefault={handleUpdateLikes} class="relative bg-white dark:bg-[#1E293B] p-6 rounded-[0.625rem] mt-12 md:mt-16">
+               <form on:submit|preventDefault={handleUpdateSuggestion} class="relative bg-white dark:bg-[#1E293B] p-6 rounded-[0.625rem] mt-12 md:mt-16">
                     <img src="/shared/icon-edit-feedback.svg" alt="" role="presentation" class="absolute -top-5 md:-top-7 h-10 md:h-14">
                     <div class="mt-6 md:mt-8">
                          <h3 class="font-bold text-lg md:text-2xl text-[#3A4374] dark:text-[#4761E6]" id="modal-title">Editing '{post.title}'</h3>
@@ -111,7 +130,7 @@
                          </div>
                     </div>
                     <div class="flex flex-col md:flex-row md:justify-between space-y-4 md:space-y-0 mt-8">
-                         <button type="button" class="mt-3 inline-flex w-full justify-center items-center rounded-[0.625rem] bg-[#D73737] hover:bg-[#DB8285] px-3 h-10 md:w-[5.8125rem] text-[#F2F4FE] ring-1 ring-inset ring-gray-300 dark:ring-[#D73737] sm:mt-0">Delete</button>
+                         <button on:click={handleDeleteSuggestion} type="button" class="mt-3 inline-flex w-full justify-center items-center rounded-[0.625rem] bg-[#D73737] hover:bg-[#DB8285] px-3 h-10 md:w-[5.8125rem] text-[#F2F4FE] ring-1 ring-inset ring-gray-300 dark:ring-[#D73737] sm:mt-0">Delete</button>
                          <div class="flex flex-col md:flex-row items-center md:space-x-4 space-y-4 md:space-y-0">
                               <button on:click={()=>{showEditForm = false}} type="button" class="inline-flex w-full justify-center items-center rounded-[0.625rem] bg-[#10263E] dark:bg-black px-3 h-10 md:w-[5.8125rem] text-[#F2F4FE] ring-1 ring-inset ring-gray-300 dark:ring-black hover:bg-[#656EA3] sm:mt-0">Cancel</button>
                               <button type="submit" class="inline-flex w-full justify-center items-center rounded-[0.625rem] bg-[#AD1FE9] hover:bg-[#C75AF6] px-3 h-10 md:w-[9rem] text-[#F2F4FE] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save Changes</button>

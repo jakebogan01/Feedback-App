@@ -293,10 +293,10 @@
                               {/each}
                          {:else}
                               <div class="flex flex-col items-center justify-center bg-white dark:bg-[#1E293B] py-[4.75rem] md:py-[6.9375rem] px-[1.625rem] text-center rounded-[0.625rem]">
-                                   {#if darkMode}
-                                        <img src="/suggestions/illustration-empty.svg" alt="" role="presentation" class="1440:h-[136px]">
-                                   {:else}
+                                   {#if $preferences[0].theme === "dark"}
                                         <img src="/suggestions/illustration-dark-empty.svg" alt="" role="presentation" class="1440:h-[136px]">
+                                   {:else}
+                                        <img src="/suggestions/illustration-empty.svg" alt="" role="presentation" class="1440:h-[136px]">
                                    {/if}
                                    <div class="md:max-w-[25.625rem]">
                                         <h2 class="font-bold text-lg md:text-2xl text-[#3A4374] dark:text-[#4761E6] leading-none mt-10">There is no feedback yet.</h2>

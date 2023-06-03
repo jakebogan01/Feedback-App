@@ -117,7 +117,7 @@
                     {#if suggestion?.comment.length >= 1}
                          <div class="bg-white dark:bg-[#1E293B] p-6 rounded-[0.625rem] text-13 space-y-12 md:space-y-6">
                               <h2 class="font-bold text-lg text-[#3A4374] dark:text-white mb-6 md:mb-0">{suggestion?.comment.length} Comments</h2>
-                              {#each suggestion?.comment as comment}
+                              {#each suggestion?.comment as comment, i}
                                    <div>
                                         <div class="flex items-center justify-between mb-4">
                                              <div class="flex items-center md:items-start">
@@ -138,12 +138,12 @@
                                                        <p class="hidden md:inline-block text-15 mt-4 text-[#647196] dark:text-[#D1D7E9]">{comment?.comment}</p>
                                                   </div>
                                              </div>
-                                             <div>
-                                                  <button type="button" class="font-semibold text-13 text-[#4661E6]">Reply</button>
-                                             </div>
                                         </div>
                                         <p class="md:hidden text-[#647196]">{comment?.comment}</p>
                                    </div>
+                                   {#if (suggestion?.comment.length - 1) > i}
+                                        <hr class="dark:border-gray-700">
+                                   {/if}
                               {/each}
                          </div>
                     {/if}
