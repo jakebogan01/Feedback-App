@@ -239,7 +239,7 @@
             </button>
         </form>
     {/if}
-    <div class="options flex flex-col gap-1 text-[0.9rem] py-3.5 px-0 w-[25rem] max-w-full mx-auto overflow-hidden">
+    <div class="relative options flex flex-col gap-1 text-[0.9rem] py-3.5 px-0 w-[25rem] max-w-full mx-auto overflow-hidden z-10">
         <div class="text-center text-red-400">
             <p>{errors.noMatch}</p>
         </div>

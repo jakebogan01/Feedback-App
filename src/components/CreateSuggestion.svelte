@@ -30,6 +30,15 @@
                errors.tag = "";
           }
      }
+
+     let titles;
+     $: {
+          if (suggestions) {
+               titles = suggestions.map((el) => {
+                    return el.title;
+               })
+          }
+     }
 </script>
 
 {#if suggestions}
@@ -53,17 +62,17 @@
                                              } else {
                                                   errors.title = "";
                                              }
-                                         }} on:keyup={()=>{
-                                             suggestions.forEach(element => {
-                                                 if (fields.title.trim() === element.title) {
-                                                     valid = false;
-                                                     errors.title = "Title already in use";
-                                                 } else {
-                                                     valid = true;
-                                                     errors.title = "";
-                                                 }
-                                             })
-                                         }} bind:value={fields.title} name="title" id="title" spellcheck="true" class="block w-full bg-[#F7F8FE] dark:bg-[#151E2C] text-13 md:text-15 text-[#3A4374] dark:text-[#8C92B4] p-3 rounded-[0.3125rem] border-0 ring-1 placeholder:text-[#3A4374] ring-inset {errors.title !== "" ? "ring-red-500" : "ring-transparent"} focus:ring-2 focus:ring-inset focus:ring-indigo-600" required>
+                                         }} 
+                                         on:keyup={(e)=>{
+                                             if (titles.includes(e.target.value.trim())) {
+                                                  valid = false;
+                                                  errors.title = "Title already in use";
+                                             } else {
+                                                  valid = true;
+                                                  errors.title = "";
+                                             }
+                                         }}
+                                          bind:value={fields.title} name="title" id="title" spellcheck="true" class="block w-full bg-[#F7F8FE] dark:bg-[#151E2C] text-13 md:text-15 text-[#3A4374] dark:text-[#8C92B4] p-3 rounded-[0.3125rem] border-0 ring-1 placeholder:text-[#3A4374] ring-inset {errors.title !== "" ? "ring-red-500" : "ring-transparent"} focus:ring-2 focus:ring-inset focus:ring-indigo-600" required>
                                    </div>
                                    <p class="text-red-500 text-[0.9rem]">{errors.title}</p>
                               </div>
