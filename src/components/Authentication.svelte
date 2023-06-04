@@ -117,8 +117,10 @@
 </script>
 
 <div class="relative flex flex-col items-center justify-center flex-1 p-6 text-white min-h-screen bg-[#011446]">
+    <img src="/favicon.png" alt="leadmarvels logo" role="presentation" class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 h-full w-full opacity-10 z-0">
+
     {#if title === "register"}
-        <form method="POST" action="?/register" enctype="multipart/form-data" use:enhance class="flex flex-col gap-5 w-[25rem] max-w-full mx-auto" autocomplete="on">
+        <form method="POST" action="?/register" enctype="multipart/form-data" use:enhance class="relative flex flex-col gap-5 w-[25rem] max-w-full mx-auto z-10" autocomplete="on">
             <h1 class="text-center text-5xl mb-4 capitalize">{title}</h1>
             <label for="username" class="relative border border-black rounded-md">
                 <p class={fields.username ? " above" : " center"}>Username</p>
@@ -186,7 +188,7 @@
             </button>
         </form>
     {:else}
-        <form on:submit|preventDefault={handleUserCredentials} class="flex flex-col gap-5 w-[25rem] max-w-full mx-auto" autocomplete="on">
+        <form on:submit|preventDefault={handleUserCredentials} class="relative flex flex-col gap-5 w-[25rem] max-w-full mx-auto z-10" autocomplete="on">
             <h1 class="text-center text-5xl mb-4 capitalize">{title}</h1>
             <label for="email" class="relative border border-black rounded-md">
                 <p class={fields.email ? " above" : " center"}>Email</p>
