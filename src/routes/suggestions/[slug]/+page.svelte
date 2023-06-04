@@ -97,7 +97,7 @@
      const handleValidation = () => {
           valid = true;
 
-          if (commentDescriptoin.trim().length >= 50) {
+          if (commentDescriptoin.trim().length >= 25) {
                commentErrors = "";
           } else {
                valid = false;
@@ -171,7 +171,7 @@
                                              valid = false;
                                              commentErrors = "";
                                         }
-                                   }} on:keyup={handleValidation} bind:value={commentDescriptoin} maxlength="255" rows="3" cols="50" name="commentDescriptoin" id="commentDescriptoin" class="block w-full bg-[#F7F8FE] dark:bg-[#151E2C] text-13 md:text-15 text-[#3A4374] dark:text-[#8C92B4] p-3 rounded-[0.3125rem] border-0 ring-1 ring-inset ring-transparent placeholder:text-[#8C92B4] focus:ring-2 focus:ring-inset focus:ring-indigo-600" placeholder="Type your comment here" style="resize: none;" required></textarea>
+                                   }} on:keyup={handleValidation} bind:value={commentDescriptoin} maxlength="255" spellcheck="true" rows="3" cols="50" name="commentDescriptoin" id="commentDescriptoin" class="block w-full bg-[#F7F8FE] dark:bg-[#151E2C] text-13 md:text-15 text-[#3A4374] dark:text-[#8C92B4] p-3 rounded-[0.3125rem] border-0 ring-1 ring-inset ring-transparent placeholder:text-[#8C92B4] focus:ring-2 focus:ring-inset focus:ring-indigo-600" placeholder="Type your comment here" style="resize: none;" required></textarea>
                               </div>
                          </div>
                          <div class="flex items-center justify-between mt-4">

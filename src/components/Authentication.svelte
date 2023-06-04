@@ -19,7 +19,6 @@
  
     const handleAuthentication = () => {
         valid = true;
-        let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
         let validEndings = ['@leadmarvels.com'];
         const res = validEndings.some(endingStr => fields.email.trim().toLowerCase().endsWith(endingStr));
 
@@ -37,49 +36,25 @@
         if (fields.username == "") {
             valid = false;
         } else {
-            if (fields.username.trim().length <= 4) {
+            if (fields.username.trim().length >= 4) {
+                errors.username = "";
+            } else {
                 valid = false;
                 errors.username = "Not a valid username";
-            } else {
-                errors.username = "";
             }
         }
+
 
         if (fields.password === "") {
             valid = false;
         } else {
-            let lowerCaseLetters = /[a-z]/g;
-            if(fields.password.trim().match(lowerCaseLetters)) {  
-                errors.password = "";
-            } else {
-                valid = false;
-                errors.password = "Must contain 1 captial & lowercase letter, 1 number, and longer than 8 characters";
-            }
-            
-            // Validate capital letters
-            let upperCaseLetters = /[A-Z]/g;
-            if(fields.password.trim().match(upperCaseLetters)) {  
-                errors.password = "";
-            } else {
-                valid = false;
-                errors.password = "Must contain 1 captial & lowercase letter, 1 number, and longer than 8 characters";
-            }
-
-            // Validate numbers
             let numbers = /[0-9]/g;
-            if(fields.password.trim().match(numbers)) {  
+            // Validate length and numbers
+            if(fields.password.trim().length >= 8 && fields.password.trim().match(numbers)) {
                 errors.password = "";
             } else {
                 valid = false;
-                errors.password = "Must contain 1 captial & lowercase letter, 1 number, and longer than 8 characters";
-            }
-            
-            // Validate length
-            if(fields.password.trim().length >= 7) {
-                errors.password = "";
-            } else {
-                valid = false;
-                errors.password = "Must contain 1 captial & lowercase letter, 1 number, and longer than 8 characters";
+                errors.password = "Must contain 1 number and at least 8 characters";
             }
         }
     }
@@ -120,26 +95,43 @@
             }
         }
     }
+
+    let usernames;
+    let emails;
+    let passwords;
+    $: {
+        if (allUsers) {
+            usernames = allUsers.map((el) => {
+                return el.username;
+            })
+
+            emails = allUsers.map((el) => {
+                return el.email;
+            })
+            
+            passwords = allUsers.map((el) => {
+                return el.password;
+            })
+        }
+    }
 </script>
 
 <div class="relative flex flex-col items-center justify-center flex-1 p-6 text-white min-h-screen bg-[#011446]">
     {#if title === "register"}
         <form method="POST" action="?/register" enctype="multipart/form-data" use:enhance class="flex flex-col gap-5 w-[25rem] max-w-full mx-auto" autocomplete="on">
             <h1 class="text-center text-5xl mb-4 capitalize">{title}</h1>
-            <label class="relative border border-black rounded-md">
+            <label for="username" class="relative border border-black rounded-md">
                 <p class={fields.username ? " above" : " center"}>Username</p>
                 <input 
                     on:keyup={handleAuthentication}
-                    on:blur={()=>{
-                        allUsers.forEach(element => {
-                            if (fields.username.trim() === element.username) {
-                                valid = false;
-                                errors.username = "Username already in use";
-                            } else {
-                                valid = true;
-                                errors.username = "";
-                            }
-                        })
+                    on:blur={(e)=>{
+                        if (usernames.includes(e.target.value.trim())) {
+                            valid = false;
+                            errors.username = "Username already in use";
+                        } else {
+                            valid = true;
+                            errors.username = "";
+                        }
                     }}
                     bind:value={fields.username}
                     type="text"
@@ -147,23 +139,23 @@
                     name="username"
                     class="block w-full rounded-md border-0 p-3.5 text-gray-900 shadow-sm ring-2 ring-inset {errors.username !== "" ? "ring-red-500" : "ring-white"} placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
                     placeholder="Username"
+                    spellcheck="true"
+                    autocomplete="on"
                     required />
                 <p class="text-red-500 text-[0.9rem] text-center">{errors.username}</p>
             </label>
-            <label class="relative border border-black rounded-md">
+            <label for="email" class="relative border border-black rounded-md">
                 <p class={fields.email ? " above" : " center"}>Email</p>
                 <input 
                     on:keyup={handleAuthentication}
-                    on:blur={()=>{
-                        allUsers.forEach(element => {
-                            if (fields.email.trim() === element.email) {
-                                valid = false;
-                                errors.email = "Email already in use";
-                            } else {
-                                valid = true;
-                                errors.email = "";
-                            }
-                        })
+                    on:blur={(e)=>{
+                        if (emails.includes(e.target.value.trim())) {
+                            valid = false;
+                            errors.email = "Email already in use";
+                        } else {
+                            valid = true;
+                            errors.email = "";
+                        }
                     }}
                     bind:value={fields.email}
                     type="email"
@@ -171,10 +163,11 @@
                     name="email"
                     class="block w-full rounded-md border-0 p-3.5 text-gray-900 shadow-sm ring-2 ring-inset {errors.email !== "" ? "ring-red-500" : "ring-white"} placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
                     placeholder="Email"
+                    autocomplete="on"
                     required />
                 <p class="text-red-500 text-[0.9rem] text-center">{errors.email}</p>
             </label>
-            <label class="relative border border-black rounded-md">
+            <label for="password" class="relative border border-black rounded-md">
                 <p class={fields.password ? " above" : " center"}>Password</p>
                 <input 
                     on:keyup={handleAuthentication}
@@ -184,6 +177,7 @@
                     name="password"
                     class="block w-full rounded-md border-0 p-3.5 text-gray-900 shadow-sm ring-2 ring-inset {errors.password !== "" ? "ring-red-500" : "ring-white"} placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
                     placeholder="Password"
+                    autocomplete="on"
                     required />
                 <p class="text-red-500 text-[0.9rem] text-center">{errors.password}</p>
             </label>
@@ -194,49 +188,47 @@
     {:else}
         <form on:submit|preventDefault={handleUserCredentials} class="flex flex-col gap-5 w-[25rem] max-w-full mx-auto" autocomplete="on">
             <h1 class="text-center text-5xl mb-4 capitalize">{title}</h1>
-            <label class="relative border border-black rounded-md">
+            <label for="email" class="relative border border-black rounded-md">
                 <p class={fields.email ? " above" : " center"}>Email</p>
                 <input 
                     bind:value={fields.email}
-                    on:blur={()=>{
-                        allUsers.forEach(element => {
-                            if (fields.email.trim() !== element.email) {
-                                valid = false;
-                                errors.email = "Email does not match";
-                            } else {
-                                valid = true;
-                                errors.email = "";
-                            }
-                        })
+                    on:blur={(e)=>{
+                        if (emails.includes(e.target.value.trim())) {
+                            valid = true;
+                            errors.email = "";
+                        } else {
+                            valid = false;
+                            errors.email = "Email does not match";
+                        }
                     }}
                     type="email"
                     id="email"
                     name="email"
                     class="block w-full rounded-md border-0 p-3.5 text-gray-900 shadow-sm ring-2 ring-inset {errors.email !== "" ? "ring-red-500" : "ring-white"} placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
                     placeholder="Email"
+                    autocomplete="on"
                     required />
                 <p class="text-red-500 text-[0.9rem] text-center">{errors.email}</p>
             </label>
-            <label class="relative border border-black rounded-md">
+            <label for="password" class="relative border border-black rounded-md">
                 <p class={fields.password ? " above" : " center"}>Password</p>
                 <input 
                     bind:value={fields.password}
-                    on:blur={()=>{
-                        allUsers.forEach(element => {
-                            if (fields.password.trim() !== element.password) {
-                                valid = false;
-                                errors.password = "Password does not match";
-                            } else {
-                                valid = true;
-                                errors.password = "";
-                            }
-                        })
+                    on:blur={(e)=>{
+                        if (passwords.includes(e.target.value.trim())) {
+                            valid = true;
+                            errors.password = "";
+                        } else {
+                            valid = false;
+                            errors.password = "Password does not match";
+                        }
                     }}
                     type="password"
                     id="password"
                     name="password"
                     class="block w-full rounded-md border-0 p-3.5 text-gray-900 shadow-sm ring-2 ring-inset {errors.password !== "" ? "ring-red-500" : "ring-white"} placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
                     placeholder="Password"
+                    autocomplete="on"
                     required />
                 <p class="text-red-500 text-[0.9rem] text-center">{errors.password}</p>
             </label>
@@ -262,22 +254,27 @@
             </div>
         {/if}
     </div>
-    <div class="hidden sm:block fixed left-4 bottom-4">
-        {#if openInfo}
-            <div class="absolute left-0 -top-20 bg-white rounded-[0.625rem] w-[25rem] p-4 text-gray-800">
-                <button on:click={()=>{openInfo = false}} type="button" class="absolute right-2 top-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd" /></svg>                  
-                </button>
-                <p>This test app is only for Leadmarvel's employees.</p>
-                <p>Please do not use real passwords, thank you!</p>
-            </div>
-        {/if}
-        <div on:keydown={()=>{}} on:click={()=>{openInfo = true}} class="cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" /></svg>
-        </div>
-    </div>
 </div>
  
+{#if openInfo}  
+    <div class="relative" style="z-index: 100;" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full justify-center text-center items-center p-6">
+                <div class="relative transform overflow-hidden rounded-lg bg-white dark:bg-[#2B2C37] px-4 pb-4 pt-5 shadow-xl transition-all my-8 w-full max-w-[30rem] p-6">
+                    <div class="mt-3">
+                        <h3 class="text-base font-semibold leading-6 text-[#EA5555] text-center" id="modal-title">Feedback Prototype</h3>
+                        <p class="font-medium text-[0.8125rem] text-[#828FA3] pb-4 pt-6">This is a prototype not for public use and is only for Leadmarvel's employees. Please log in with fake credentials and do not use real passwords, thank you!</p>
+                    </div>
+                    <div class="mt-5 sm:mt-4">
+                        <button type="button" on:click={()=>{openInfo = false}} class="mt-3 inline-flex w-full justify-center items-center rounded-md bg-[#2CC320] hover:bg-[#1d8f14] px-3 h-10 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 sm:mt-0">I Understand</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{/if}
+
 <style>
     * {
         border-style: none;

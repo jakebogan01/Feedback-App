@@ -5,7 +5,7 @@
      export let post;
 
      let suggestions;
-     let tags = ['Feature', 'UI', 'UX', 'Bug', 'Enhancement'];
+     let tags = ['Feature', 'UI', 'UX', 'Bug', 'Enhancement', 'Marketing', 'Sales'];
      let statuses = ['Pending', 'In-Progress', 'Live'];
      $: fields = {title: '', tag: '', status: '', description: ''};
      let errors = {title: '', tag: '', status: '', description: ''};
@@ -114,7 +114,7 @@
                                                      errors.title = "";
                                                  }
                                              })
-                                         }} on:input={(event)=>{handleValidation(event, 'title')}} value={post.title} name="title" id="title" class="block w-full bg-[#F7F8FE] dark:bg-[#151E2C] text-13 md:text-15 text-[#3A4374] dark:text-[#8C92B4] p-3 rounded-[0.3125rem] border-0 ring-1 placeholder:text-[#3A4374] dark:placeholder:text-[#8C92B4] ring-inset {errors.title !== "" ? "ring-red-500" : "ring-transparent"} focus:ring-2 focus:ring-inset focus:ring-indigo-600" required>
+                                         }} on:input={(event)=>{handleValidation(event, 'title')}} value={post.title} name="title" id="title" spellcheck="true" class="block w-full bg-[#F7F8FE] dark:bg-[#151E2C] text-13 md:text-15 text-[#3A4374] dark:text-[#8C92B4] p-3 rounded-[0.3125rem] border-0 ring-1 placeholder:text-[#3A4374] dark:placeholder:text-[#8C92B4] ring-inset {errors.title !== "" ? "ring-red-500" : "ring-transparent"} focus:ring-2 focus:ring-inset focus:ring-indigo-600" required>
                                    </div>
                                    <p class="text-red-500 text-[0.9rem]">{errors.title}</p>
                               </div>
@@ -151,7 +151,7 @@
                                              } else {
                                                   errors.description = "";
                                              }
-                                        }} on:input={(event)=>{handleValidation(event, 'description')}} value={post.description} rows="4" cols="50" name="description" id="description" class="block w-full bg-[#F7F8FE] dark:bg-[#151E2C] text-13 md:text-15 text-[#3A4374] dark:text-[#8C92B4] p-3 rounded-[0.3125rem] border-0 ring-1 placeholder:text-[#3A4374] dark:placeholder:text-[#8C92B4] ring-inset {errors.description !== "" ? "ring-red-500" : "ring-transparent"} focus:ring-2 focus:ring-inset focus:ring-indigo-600" style="resize: none;" required></textarea>
+                                        }} on:input={(event)=>{handleValidation(event, 'description')}} spellcheck="true" value={post.description} rows="4" cols="50" name="description" id="description" class="block w-full bg-[#F7F8FE] dark:bg-[#151E2C] text-13 md:text-15 text-[#3A4374] dark:text-[#8C92B4] p-3 rounded-[0.3125rem] border-0 ring-1 placeholder:text-[#3A4374] dark:placeholder:text-[#8C92B4] ring-inset {errors.description !== "" ? "ring-red-500" : "ring-transparent"} focus:ring-2 focus:ring-inset focus:ring-indigo-600" style="resize: none;" required></textarea>
                                    </div>
                                    <p class="text-red-500 text-[0.9rem]">{errors.description}</p>
                               </div>
