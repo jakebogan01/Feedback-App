@@ -117,10 +117,11 @@
 </script>
 
 <div class="relative flex flex-col items-center justify-center flex-1 p-6 text-white min-h-screen bg-[#011446]">
-    <img src="/favicon.png" alt="leadmarvels logo" role="presentation" class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 h-full opacity-10 z-0">
+    <img src="/favicon.png" alt="leadmarvels logo" role="presentation" class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 h-[50rem] min-w-[50rem] 1440:w-auto 1440:h-full opacity-10 z-0">
+    <div class="absolute inset-0 bg-transparent w-full h-full z-10"></div>
 
     {#if title === "register"}
-        <form method="POST" action="?/register" enctype="multipart/form-data" use:enhance class="relative flex flex-col gap-5 w-[25rem] max-w-full mx-auto z-10" autocomplete="on">
+        <form method="POST" action="?/register" enctype="multipart/form-data" use:enhance class="relative flex flex-col gap-5 w-[25rem] max-w-full mx-auto z-20" autocomplete="on">
             <h1 class="text-center text-5xl mb-4 capitalize">{title}</h1>
             <label for="username" class="relative border border-black rounded-md">
                 <p class={fields.username ? " above" : " center"}>Username</p>
@@ -188,7 +189,7 @@
             </button>
         </form>
     {:else}
-        <form on:submit|preventDefault={handleUserCredentials} class="relative flex flex-col gap-5 w-[25rem] max-w-full mx-auto z-10" autocomplete="on">
+        <form on:submit|preventDefault={handleUserCredentials} class="relative flex flex-col gap-5 w-[25rem] max-w-full mx-auto z-20" autocomplete="on">
             <h1 class="text-center text-5xl mb-4 capitalize">{title}</h1>
             <label for="email" class="relative border border-black rounded-md">
                 <p class={fields.email ? " above" : " center"}>Email</p>
@@ -239,7 +240,7 @@
             </button>
         </form>
     {/if}
-    <div class="relative options flex flex-col gap-1 text-[0.9rem] py-3.5 px-0 w-[25rem] max-w-full mx-auto overflow-hidden z-10">
+    <div class="relative options flex flex-col gap-1 text-[0.9rem] py-3.5 px-0 w-[25rem] max-w-full mx-auto overflow-hidden z-20">
         <div class="text-center text-red-400">
             <p>{errors.noMatch}</p>
         </div>
@@ -261,7 +262,7 @@
 {#if openInfo}  
     <div class="relative" style="z-index: 100;" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
-        <div class="fixed inset-0 z-10 overflow-y-auto">
+        <div class="fixed inset-0 z-20 overflow-y-auto">
             <div class="flex min-h-full justify-center text-center items-center p-6">
                 <div class="relative transform overflow-hidden rounded-lg bg-white dark:bg-[#2B2C37] px-4 pb-4 pt-5 shadow-xl transition-all my-8 w-full max-w-[30rem] p-6">
                     <div class="mt-3">
@@ -280,6 +281,13 @@
 <style>
     * {
         border-style: none;
+    }
+    img {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: default;
     }
     .above,
     .center {

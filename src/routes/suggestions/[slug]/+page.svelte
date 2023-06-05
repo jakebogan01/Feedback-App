@@ -101,7 +101,7 @@
                commentErrors = "";
           } else {
                valid = false;
-               commentErrors = "Must be more than 50 characters";
+               commentErrors = "Must be more than 25 characters";
           }
      }
 </script>
@@ -111,7 +111,7 @@
 {/if}
 
 {#if suggestion && $preferences[1]}
-     <main class="flex flex-col justify-between bg-[#F7F8FE] dark:bg-[#0F172A] px-6 pt-8 pb-[4.8125rem] h-full" style="min-height: 100dvh;">
+     <main class="flex flex-col justify-between bg-[#F7F8FE] dark:bg-[#0F172A] px-6 pt-8" style="height: -webkit-fill-available; min-height: 100dvh;">
           <div>
                <div class="flex items-center justify-between max-w-[43.0625rem] mx-auto">
                     <div>
@@ -184,7 +184,10 @@
                     </form>
                </section>
           </div>
-          <span class="block text-center text-gray-300 text-sm">© 2023 Lead Marvels, Inc. All rights reserved.  <a href="https://leadmarvels.com" class="underline">Home Site</a>.  <a href="https://lmdashboard.com/nova/dashboards/main" class="underline">Dashboard</a></span>
+          <span class="flex flex-col justify-center sm:flex-row w-full text-center text-gray-300 dark:text-gray-600 text-xs md:text-sm pb-10 pt-[4.8125rem] px-4">
+               <span>© 2023 Lead Marvels, Inc. All rights reserved.</span>
+               <span><a href="https://leadmarvels.com" class="underline">Home Site</a>.  <a href="https://lmdashboard.com/nova/dashboards/main" class="underline">Dashboard</a></span>
+          </span>
      </main>
 {:else}
      <div class="bg-white dark:bg-[#0F172A] h-full" style="min-height: 100dvh;"></div>
