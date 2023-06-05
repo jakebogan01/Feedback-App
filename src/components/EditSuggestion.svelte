@@ -74,7 +74,7 @@
                     },
                }).then((response) => {
                     if (response.ok) { 
-                         window.location.href = '/suggestions';
+                         window.history.back();
                     }
                });
           } catch (error) {
