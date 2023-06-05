@@ -266,8 +266,8 @@
             <div class="flex min-h-full justify-center text-center items-center p-6">
                 <div class="relative transform overflow-hidden rounded-lg bg-white dark:bg-[#2B2C37] px-4 pb-4 pt-5 shadow-xl transition-all my-8 w-full max-w-[30rem] p-6">
                     <div class="mt-3">
-                        <h3 class="text-base font-semibold leading-6 text-[#EA5555] text-center" id="modal-title">Feedback Prototype</h3>
-                        <p class="font-medium text-[0.8125rem] text-[#828FA3] pb-4 pt-6">This is a prototype not for public use and is only for Leadmarvel's employees. Please log in with fake credentials and do not use real passwords, thank you!</p>
+                        <h3 class="text-base font-semibold leading-6 text-[#EA5555] text-center" id="modal-title">WARNING</h3>
+                        <p class="font-medium text-[0.8125rem] text-[#828FA3] pb-4 pt-6">This app is a prototype and is intended for testing purposes only. Not made for public use and is only intended for the use of Leadmarvel's employees. You may experience bugs, design issues, please let the developer aware of any issues you might experience. Lastly, please log in with fake credentials and <b class="text-[#EA5555]">do not</b> use real passwords or post personal information, thank you!</p>
                     </div>
                     <div class="mt-5 sm:mt-4">
                         <button type="button" on:click={()=>{openInfo = false}} class="mt-3 inline-flex w-full justify-center items-center rounded-md bg-[#2CC320] hover:bg-[#1d8f14] px-3 h-10 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 sm:mt-0">I Understand</button>
