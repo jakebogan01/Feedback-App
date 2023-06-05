@@ -117,7 +117,7 @@
 </script>
 
 <div class="relative flex flex-col items-center justify-center flex-1 p-6 text-white min-h-screen bg-[#011446]">
-    <img src="/favicon.png" alt="leadmarvels logo" role="presentation" class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 h-full w-full opacity-10 z-0">
+    <img src="/favicon.png" alt="leadmarvels logo" role="presentation" class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 h-full opacity-10 z-0">
 
     {#if title === "register"}
         <form method="POST" action="?/register" enctype="multipart/form-data" use:enhance class="relative flex flex-col gap-5 w-[25rem] max-w-full mx-auto z-10" autocomplete="on">
@@ -164,7 +164,7 @@
                     id="email"
                     name="email"
                     class="block w-full rounded-md border-0 p-3.5 text-gray-900 shadow-sm ring-2 ring-inset {errors.email !== "" ? "ring-red-500" : "ring-white"} placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
-                    placeholder="Email"
+                    placeholder="Leadmarvel's Email"
                     autocomplete="on"
                     required />
                 <p class="text-red-500 text-[0.9rem] text-center">{errors.email}</p>
@@ -207,7 +207,7 @@
                     id="email"
                     name="email"
                     class="block w-full rounded-md border-0 p-3.5 text-gray-900 shadow-sm ring-2 ring-inset {errors.email !== "" ? "ring-red-500" : "ring-white"} placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
-                    placeholder="Email"
+                    placeholder="Leadmarvel's Email"
                     autocomplete="on"
                     required />
                 <p class="text-red-500 text-[0.9rem] text-center">{errors.email}</p>

@@ -16,10 +16,6 @@
      let valid = false;
      
      onMount(async () => {
-          if (!$preferences[1]) {
-               window.location.replace("/");
-          }
-
           const res = await fetch(`https://feedback-api-eight.vercel.app/suggestions/${data?.slug}`, {
                method: "GET",
                headers: {
@@ -28,6 +24,10 @@
                },
           });
           suggestion = await res.json();
+
+          if (!$preferences[1] && !suggestion) {
+               window.location.replace("/");
+          }
 
           const userRes = await fetch('https://feedback-api-eight.vercel.app/users', {
                method: "GET",
@@ -110,7 +110,7 @@
      <EditSuggestion post={suggestion} bind:showEditForm={showEditForm} />
 {/if}
 
-{#if suggestion}
+{#if suggestion && $preferences[1]}
      <main class="flex flex-col justify-between bg-[#F7F8FE] dark:bg-[#0F172A] px-6 pt-8 pb-[4.8125rem] h-full" style="min-height: 100dvh;">
           <div>
                <div class="flex items-center justify-between max-w-[43.0625rem] mx-auto">
