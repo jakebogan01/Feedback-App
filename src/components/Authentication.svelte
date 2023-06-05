@@ -116,7 +116,7 @@
     }
 </script>
 
-<div class="relative flex flex-col items-center justify-center flex-1 p-6 text-white min-h-screen bg-[#011446]">
+<div class="relative flex flex-col items-center justify-center flex-1 p-6 text-white min-h-screen bg-[#011446] overflow-hidden">
     <img src="/favicon.png" alt="leadmarvels logo" role="presentation" class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 h-[50rem] min-w-[50rem] 1440:w-auto 1440:h-full opacity-10 z-0">
     <div class="absolute inset-0 bg-transparent w-full h-full z-10"></div>
 

@@ -211,7 +211,7 @@
                                    <div class="relative">
                                         <button  type="button" class="relative cursor-pointer bg-transparent text-left ring-0 ring-inset ring-transparent focus:outline-none focus:ring-0 focus:ring-transparent" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
                                              <span class="block truncate font-bold text-13 md:text-sm text-[#F3F4FE] group-hover:text-[#B9C0CE] pl-1">{filterByNumbers}</span>
-                                             <span class="pointer-events-none absolute inset-y-0 -right-4 flex items-center">
+                                             <span class="hidden sm:flex pointer-events-none absolute inset-y-0 -right-4 items-center">
                                                   <svg width="9" height="7" class="w-full" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Path 2" d="M1 1L5 5L9 1" stroke="white" stroke-width="2"/></svg>
                                              </span>
                                         </button>
@@ -237,7 +237,7 @@
                          <CreateSuggestion bind:showCreateForm={showCreateForm} />
                     {/if}
                
-                    <main class="relative py-8 overflow-hidden">
+                    <main class="relative py-8 overflow-hidden" style="height: -webkit-fill-available; min-height: 100dvh;">
                          <div class="md:hidden absolute top-0 bottom-0 min-h-screen bg-[#F7F8FE] dark:bg-[#0F172A] overflow-hidden p-6 w-full z-50 duration-300 ease-in-out {openMenu ? "-right-[0%]" : "-right-full"}">
                               <div class="space-y-6 max-w-[20.3125rem] mx-auto">
                                    <Tags bind:tagFilter={tagFilter} bind:filterByTag={filterByTag} filterByNumbers={filterByNumbers} tags={removeDuplicates(tags)}/>
