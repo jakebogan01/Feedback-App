@@ -26,7 +26,7 @@
                {/if}
                <span class="text-[#647196] dark:text-[#D1D7E9] 1440:text-base">{currentStatus}</span>
           </div>
-          <h2 class="font-bold text-[#3A4374] group-hover:text-[#4761E6] dark:text-white text-13 1440:text-lg leading-3 truncate">{suggestion?.title}</h2>
+          <h2 class="font-bold text-[#3A4374] group-hover:text-[#4761E6] dark:text-white text-13 1440:text-lg leading-3">{suggestion?.title}</h2>
           <p class="text-[#647196] dark:text-[#D1D7E9] text-13 1440:text-base my-2 truncate">{suggestion?.description}</p>
      </a>
      <div class="flex items-end justify-between">
