@@ -199,7 +199,7 @@
           
                <div class="flex-1">
                     <div class="relative flex items-center justify-between md:rounded-[0.625rem] px-6 py-2 md:py-3.5 md:px-3 1440:px-4 1440:py-4 bg-[#10263E] z-50" on:keydown={()=>{}} on:click|self={()=>{showDropList = false}}>
-                         <div on:keydown={()=>{}} on:click={()=>{showDropList = !showDropList}} class="flex items-center text-13 text-[#F3F4FE]">
+                         <div class="flex items-center text-13 text-[#F3F4FE]">
                               <div class="hidden md:flex items-center mr-10">
                                    <img src="/suggestions/icon-suggestions.svg" alt="" role="presentation" class="mr-4">
                                    {#if suggestions}
@@ -209,7 +209,7 @@
                               <div class="flex items-center md:mt-0.5 group">
                                    <label for="filter" class="whitespace-nowrap md:text-sm group-hover:text-[#B9C0CE]">Sort by :</label>
                                    <div class="relative">
-                                        <button  type="button" class="relative cursor-pointer bg-transparent text-left ring-0 ring-inset ring-transparent focus:outline-none focus:ring-0 focus:ring-transparent" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
+                                        <button on:keydown={()=>{}} on:click={()=>{showDropList = !showDropList}} type="button" class="relative cursor-pointer bg-transparent text-left ring-0 ring-inset ring-transparent focus:outline-none focus:ring-0 focus:ring-transparent" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
                                              <span class="block truncate font-bold text-13 md:text-sm text-[#F3F4FE] group-hover:text-[#B9C0CE] pl-1">{filterByNumbers}</span>
                                              <span class="hidden sm:flex pointer-events-none absolute inset-y-0 -right-4 items-center">
                                                   <svg width="9" height="7" class="w-full" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Path 2" d="M1 1L5 5L9 1" stroke="white" stroke-width="2"/></svg>
