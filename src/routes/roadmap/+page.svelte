@@ -83,7 +83,7 @@
 </script>
 
 {#if $preferences[1]}
-     <div class="flex flex-col justify-between bg-[#F7F8FE] dark:bg-[#0F172A] md:pt-14 md:px-10" style="height: -webkit-fill-available; min-height: 100dvh;">
+     <div class="bg-[#F7F8FE] dark:bg-[#0F172A] md:pt-14 md:px-10" style="height: -webkit-fill-available; min-height: 100dvh;">
           <div class="w-full">
                <section class="relative flex items-center justify-between max-w-[69.375rem] mx-auto md:rounded-[0.625rem] px-6 py-6 md:px-9 md:py-8 bg-[#10263E] z-50">
                     <div class="text-13 text-[#F3F4FE]">
@@ -162,9 +162,5 @@
                     </main>
                {/if}
           </div>
-          <span class="flex flex-col justify-center sm:flex-row w-full text-center text-gray-300 dark:text-gray-600 text-xs md:text-sm pb-10 pt-[4.8125rem] px-4">
-               <span>© 2023 Lead Marvels, Inc. All rights reserved.</span>
-               <span><a href="https://leadmarvels.com" class="underline">Home Site</a>.  <a href="https://lmdashboard.com/nova/dashboards/main" class="underline">Dashboard</a></span>
-          </span>
      </div>
 {/if}

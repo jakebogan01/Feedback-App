@@ -1,7 +1,6 @@
 <script>
     import { afterUpdate } from 'svelte';
     import { preferences } from '../store/preferences';
-    import { goto } from '$app/navigation';
     import { enhance } from '$app/forms';
     export let data = null;
 
@@ -10,7 +9,6 @@
     let errors = {email: '', username: '', password: '', confirmPassword: '', noMatch: ''};
     let valid = false;
     let allUsers;
-    let openInfo = true;
 
 
     afterUpdate(()=> {
@@ -19,15 +17,14 @@
  
     const handleAuthentication = () => {
         valid = true;
-        let validEndings = ['@leadmarvels.com'];
-        const res = validEndings.some(endingStr => fields.email.trim().toLowerCase().endsWith(endingStr));
+        let res = fields.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
 
         if (fields.email == "") {
             valid = false;
         } else {
             if (!res) {
                 valid = false;
-                errors.email = "Must have a Leadmarvels email";
+                errors.email = "Not a valid email";
             } else {
                 errors.email = "";
             }
@@ -117,8 +114,6 @@
 </script>
 
 <div class="relative flex flex-col items-center justify-center flex-1 p-6 text-white min-h-screen bg-[#011446] overflow-hidden">
-    <img src="/favicon.png" alt="leadmarvels logo" role="presentation" class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 h-[50rem] min-w-[50rem] 1440:w-auto 1440:h-full opacity-10 z-0">
-    <div class="absolute inset-0 bg-transparent w-full h-full z-10"></div>
 
     {#if title === "register"}
         <form method="POST" action="?/register" enctype="multipart/form-data" use:enhance class="relative flex flex-col gap-5 w-[25rem] max-w-full mx-auto z-20" autocomplete="on">
@@ -165,7 +160,7 @@
                     id="email"
                     name="email"
                     class="block w-full rounded-md border-0 p-3.5 text-gray-900 shadow-sm ring-2 ring-inset {errors.email !== "" ? "ring-red-500" : "ring-white"} placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
-                    placeholder="Leadmarvel's Email"
+                    placeholder="Email"
                     autocomplete="on"
                     required />
                 <p class="text-red-500 text-[0.9rem] text-center">{errors.email}</p>
@@ -208,7 +203,7 @@
                     id="email"
                     name="email"
                     class="block w-full rounded-md border-0 p-3.5 text-gray-900 shadow-sm ring-2 ring-inset {errors.email !== "" ? "ring-red-500" : "ring-white"} placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
-                    placeholder="Leadmarvel's Email"
+                    placeholder="Email"
                     autocomplete="on"
                     required />
                 <p class="text-red-500 text-[0.9rem] text-center">{errors.email}</p>
@@ -258,36 +253,10 @@
         {/if}
     </div>
 </div>
- 
-{#if openInfo}  
-    <div class="relative" style="z-index: 100;" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
-        <div class="fixed inset-0 z-20 overflow-y-auto">
-            <div class="flex min-h-full justify-center text-center items-center p-6">
-                <div class="relative transform overflow-hidden rounded-lg bg-white dark:bg-[#2B2C37] px-4 pb-4 pt-5 shadow-xl transition-all my-8 w-full max-w-[30rem] p-6">
-                    <div class="mt-3">
-                        <h3 class="text-base font-semibold leading-6 text-[#EA5555] text-center" id="modal-title">WARNING</h3>
-                        <p class="font-medium text-[0.8125rem] text-[#828FA3] pb-4 pt-6">This app is a prototype and is intended for testing purposes only. Not made for public use and is only intended for the use of Leadmarvel's employees. You may experience bugs, design issues, please let the developer aware of any issues you might experience. Lastly, please log in with fake credentials and <b class="text-[#EA5555]">do not</b> use real passwords or post personal information, thank you!</p>
-                    </div>
-                    <div class="mt-5 sm:mt-4">
-                        <button type="button" on:click={()=>{openInfo = false}} class="mt-3 inline-flex w-full justify-center items-center rounded-md bg-[#2CC320] hover:bg-[#1d8f14] px-3 h-10 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 sm:mt-0">I Understand</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-{/if}
 
 <style>
     * {
         border-style: none;
-    }
-    img {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        cursor: default;
     }
     .above,
     .center {
